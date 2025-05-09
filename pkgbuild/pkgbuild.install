@@ -13,29 +13,29 @@ printMsg() {
     echo -e "${blueDark}[${lightBlue}community-release${blueDark}]${reset} ${cyan}→${reset} ${white}${message}${reset}"
 }
 
-# Function executed after the package is installed
-post_install() {
-    printMsg "Protecting lsb-release file against modifications..."
-    chattr +i /etc/lsb-release
-    printMsg "lsb-release file successfully protected."
-}
+# # Function executed after the package is installed
+# post_install() {
+#     printMsg "Protecting lsb-release file against modifications..."
+#     chattr +i /etc/lsb-release
+#     printMsg "lsb-release file successfully protected."
+# }
 
-# Function executed before upgrading the package
-pre_upgrade() {
-    printMsg "Preparing to upgrade the lsb-release file..."
-    # Temporarily remove protection to allow the upgrade
-    chattr -i /etc/lsb-release 2>/dev/null || true
-}
+# # Function executed before upgrading the package
+# pre_upgrade() {
+#     printMsg "Preparing to upgrade the lsb-release file..."
+#     # Temporarily remove protection to allow the upgrade
+#     chattr -i /etc/lsb-release 2>/dev/null || true
+# }
 
-# Function executed after upgrading the package
-post_upgrade() {
-    post_install
-}
+# # Function executed after upgrading the package
+# post_upgrade() {
+#     post_install
+# }
 
-# Function executed before removing the package
-pre_remove() {
-    printMsg "Preparing to remove the package..."
-    # Remove protection to allow removal
-    chattr -i /etc/lsb-release 2>/dev/null || true
-}
+# # Function executed before removing the package
+# pre_remove() {
+#     printMsg "Preparing to remove the package..."
+#     # Remove protection to allow removal
+#     chattr -i /etc/lsb-release 2>/dev/null || true
+# }
 
