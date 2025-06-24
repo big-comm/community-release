@@ -1,0 +1,292 @@
+#!/bin/bash
+#
+# comm-release - Community Distribution Information Tool
+#
+# Based on lsb_release, customized for community distributions
+# Copyright (C) 2025 Community Project
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+
+###############################################################################
+#     COLOR DEFINITIONS
+###############################################################################
+
+# BigCommunity Color Palette
+blueDark="\e[1;38;5;33m"
+lightBlue="\e[1;38;5;39m"
+cyan="\e[1;38;5;45m"
+white="\e[1;97m"
+reset="\e[0m"
+
+# Additional colors for enhanced display
+green="\e[1;38;5;46m"
+yellow="\e[1;38;5;226m"
+red="\e[1;38;5;196m"
+purple="\e[1;38;5;141m"
+
+###############################################################################
+#     DECLARATIONS
+###############################################################################
+
+# Script version
+SCRIPTVERSION="1.0.0"
+
+# Configuration files
+INFO_ROOT="/etc"
+INFO_LSB_FILE="lsb-release"
+COMM_RELEASE_FILE="comm-release"
+
+# Exit codes
+EXIT_STATUS="0"
+ERROR_UNKNOWN="10"
+ERROR_USER="1"
+ERROR_PROGRAM="2"
+ERROR_NOANSWER="3"
+
+# Default fallback values (only used when no config files found)
+DEFAULT_DISTRIB_ID="Unknown"
+DEFAULT_DISTRIB_RELEASE="Unknown"
+DEFAULT_DISTRIB_CODENAME="Unknown"
+DEFAULT_DISTRIB_DESCRIPTION="Unknown Distribution"
+
+# Messages
+MSG_RESULT=""
+
+###############################################################################
+#     TRANSLATION FUNCTION
+###############################################################################
+
+# Simple translation function - can be extended for full i18n
+translate() {
+    local text="$1"
+    # For now, just return the text. In CI/CD, this function can be replaced
+    # with proper gettext calls or translation lookups
+    echo "$text"
+}
+
+# Shorthand function
+T() {
+    translate "$1"
+}
+
+###############################################################################
+#     FUNCTIONS
+###############################################################################
+
+# Display error messages
+DisplayError() {
+    local error_code="$1"
+    local error_msg="$2"
+    printf "${red}%s:${reset} ${white}%s${reset}\n" "$(T "Error")" "$error_msg" >&2
+    exit "$error_code"
+}
+
+# Display BigCommunity ASCII Art Banner
+DisplayBanner() {
+    printf "${cyan}"
+    printf "    ╔══════════════════════════════════════════╗\n"
+    printf "    ║             ${white}BigCommunity${cyan}                 ║\n"
+    printf "    ║         ${lightBlue}%s${cyan}         ║\n" "$(T "Distribution Information")"
+    printf "    ╚══════════════════════════════════════════╝\n"
+    printf "${reset}\n"
+    printf "\n"
+}
+
+# Display program version
+DisplayProgramVersion() {
+    printf "${blueDark}BigCommunity comm-release v%s${reset}\n" "$SCRIPTVERSION"
+    printf "\n"
+    printf "${white}%s${reset}\n" "$(T "Copyright (C) 2025 BigCommunity")"
+    printf "${cyan}%s${reset}\n" "$(T "This is free software; see the source for copying conditions.")"
+    printf "${cyan}%s${reset}\n" "$(T "Based on lsb_release from Free Standards Group, Inc.")"
+    printf "\n"
+    exit $EXIT_STATUS
+}
+
+# Usage information
+Usage() {
+    DisplayBanner
+    printf "${blueDark}BigCommunity comm-release v%s${reset} - ${white}%s${reset}\n" "$SCRIPTVERSION" "$(T "Distribution Information Tool")"
+    printf "\n"
+    printf "${lightBlue}%s:${reset} ${cyan}comm-release${reset} ${white}[OPTION]...${reset}\n" "$(T "Usage")"
+    printf "${yellow}%s${reset}\n" "$(T "With no OPTION specified defaults to showing all information (same as -a).")"
+    printf "\n"
+    printf "${lightBlue}%s:${reset}\n" "$(T "Options")"
+    printf "  ${cyan}-i, --id${reset}          ${white}%s${reset}\n" "$(T "Display the distributor ID")"
+    printf "  ${cyan}-d, --description${reset} ${white}%s${reset}\n" "$(T "Display the distribution description")"
+    printf "  ${cyan}-r, --release${reset}     ${white}%s${reset}\n" "$(T "Display the release number")"
+    printf "  ${cyan}-c, --codename${reset}    ${white}%s${reset}\n" "$(T "Display the codename")"
+    printf "  ${cyan}-a, --all${reset}         ${white}%s${reset}\n" "$(T "Display all information")"
+    printf "  ${cyan}-s, --short${reset}       ${white}%s${reset}\n" "$(T "Use short output format")"
+    printf "  ${cyan}-b, --banner${reset}      ${white}%s${reset}\n" "$(T "Display with banner")"
+    printf "  ${cyan}-h, --help${reset}        ${white}%s${reset}\n" "$(T "Display this help message")"
+    printf "  ${cyan}-p, --program-version${reset} ${white}%s${reset}\n" "$(T "Display program version")"
+    printf "\n"
+    exit $EXIT_STATUS
+}
+
+# Enhanced argument parsing
+EnhancedGetopt() {
+    getopt -T >/dev/null 2>&1
+    if [ $? = 4 ]; then
+        OPT=$(getopt -o acdhirsbp \
+--long all,codename,description,help,id,release,short,banner,program-version \
+              -n 'comm-release' \
+              -- "$@")
+    else
+        MYARGS=$(echo "$@" | sed -e "/--/s/-\(-[[:alnum:]]\)[[:alnum:]]*/\1/g")
+        OPT=$(getopt -o acdhirsbp \
+                     -n 'comm-release' \
+                     -- "$MYARGS")
+    fi
+    
+    if [ $? != 0 ]; then
+        DisplayError "$ERROR_PROGRAM" "$(T "Internal error")"
+    fi
+
+    NB_ARG=""
+    eval set -- "$OPT"
+    while true; do
+        case "$1" in
+        -a|--all) ARG_A="y"; NB_ARG="y"; shift;;
+        -c|--codename) ARG_C="y"; NB_ARG="y"; shift;;
+        -d|--description) ARG_D="y"; NB_ARG="y"; shift;;
+        -i|--id) ARG_I="y"; NB_ARG="y"; shift;;
+        -r|--release) ARG_R="y"; NB_ARG="y"; shift;;
+        -s|--short) ARG_S="y"; shift;;
+        -b|--banner) ARG_B="y"; shift;;
+        -p|--program-version) DisplayProgramVersion;;
+        -h|--help) Usage;;
+        --) shift; break;;
+        *) DisplayError "$ERROR_USER" "$(T "Invalid usage")";;
+        esac
+    done
+}
+
+# Get distribution information
+GetDistribInfo() {
+    # Initialize with empty values
+    DISTRIB_ID=""
+    DISTRIB_RELEASE=""
+    DISTRIB_CODENAME=""
+    DISTRIB_DESCRIPTION=""
+    
+    # First priority: Try to read from /etc/comm-release
+    if [ -f "$INFO_ROOT/$COMM_RELEASE_FILE" ]; then
+        . "$INFO_ROOT/$COMM_RELEASE_FILE"
+    # Second priority: Try to read from /etc/lsb-release  
+    elif [ -f "$INFO_ROOT/$INFO_LSB_FILE" ]; then
+        . "$INFO_ROOT/$INFO_LSB_FILE"
+    fi
+    
+    # Set generic defaults for any missing values
+    [ -z "$DISTRIB_ID" ] && DISTRIB_ID="$DEFAULT_DISTRIB_ID"
+    [ -z "$DISTRIB_RELEASE" ] && DISTRIB_RELEASE="$DEFAULT_DISTRIB_RELEASE"
+    [ -z "$DISTRIB_CODENAME" ] && DISTRIB_CODENAME="$DEFAULT_DISTRIB_CODENAME"
+    [ -z "$DISTRIB_DESCRIPTION" ] && DISTRIB_DESCRIPTION="$DEFAULT_DISTRIB_DESCRIPTION"
+}
+
+# Display functions with beautiful formatting
+DisplayID() {
+    if [ -z "$ARG_S" ]; then
+        printf "${blueDark}%s:${reset}    ${cyan}%s${reset}\n" "$(T "Distributor ID")" "$DISTRIB_ID"
+    else
+        MSG_RESULT="$MSG_RESULT${MSG_RESULT:+ }$DISTRIB_ID"
+    fi
+}
+
+DisplayDescription() {
+    if [ -z "$ARG_S" ]; then
+        printf "${blueDark}%s:${reset}       ${white}%s${reset}\n" "$(T "Description")" "$DISTRIB_DESCRIPTION"
+    else
+        MSG_RESULT="$MSG_RESULT${MSG_RESULT:+ }\"$DISTRIB_DESCRIPTION\""
+    fi
+}
+
+DisplayRelease() {
+    if [ -z "$ARG_S" ]; then
+        printf "${blueDark}%s:${reset}           ${lightBlue}%s${reset}\n" "$(T "Release")" "$DISTRIB_RELEASE"
+    else
+        MSG_RESULT="$MSG_RESULT${MSG_RESULT:+ }$DISTRIB_RELEASE"
+    fi
+}
+
+DisplayCodename() {
+    if [ -z "$ARG_S" ]; then
+        printf "${blueDark}%s:${reset}          ${cyan}%s${reset}\n" "$(T "Codename")" "$DISTRIB_CODENAME"
+    else
+        MSG_RESULT="$MSG_RESULT${MSG_RESULT:+ }$DISTRIB_CODENAME"
+    fi
+}
+
+# Display beautiful separator
+DisplaySeparator() {
+    if [ -z "$ARG_S" ]; then
+        printf "${cyan}────────────────────────────────────────────────${reset}\n"
+    fi
+}
+
+###############################################################################
+#     MAIN
+###############################################################################
+
+# Parse arguments
+if [ -z "$1" ]; then
+    # Default behavior: show all information with banner (following lsb_release standard)
+    ARG_A="y"
+    ARG_B="y"
+    ARG_C="y"
+    ARG_D="y"
+    ARG_I="y"
+    ARG_R="y"
+else
+    EnhancedGetopt "$@"
+    if [ -n "$ARG_S" ] && [ -z "$NB_ARG" ]; then
+        ARG_R="y"  # Default to release for short format
+    fi
+fi
+
+# Set all flags if --all is specified
+if [ -n "$ARG_A" ]; then
+    [ -z "$ARG_C" ] && ARG_C="y"
+    [ -z "$ARG_D" ] && ARG_D="y"
+    [ -z "$ARG_I" ] && ARG_I="y"
+    [ -z "$ARG_R" ] && ARG_R="y"
+    ARG_B="y"  # Show banner for --all
+fi
+
+# Initialize distribution information
+GetDistribInfo
+
+# Display banner if requested or if displaying all info
+if [ -n "$ARG_B" ] || [ -n "$ARG_A" ]; then
+    if [ -z "$ARG_S" ]; then
+        DisplayBanner
+    fi
+fi
+
+# Display separator for non-short output
+if [ -z "$ARG_S" ] && ([ -n "$ARG_A" ] || [ -n "$ARG_B" ]); then
+    DisplaySeparator
+fi
+
+# Display requested information in order
+[ -n "$ARG_I" ] && DisplayID
+[ -n "$ARG_D" ] && DisplayDescription
+[ -n "$ARG_R" ] && DisplayRelease
+[ -n "$ARG_C" ] && DisplayCodename
+
+# Display final separator and footer for detailed output
+if [ -z "$ARG_S" ] && ([ -n "$ARG_A" ] || [ -n "$ARG_B" ]); then
+    DisplaySeparator
+    printf "${purple}%s${reset} • ${yellow}%s${reset}\n" "$(T "BigCommunity Distribution")" "$(T "Built with ❤️")"
+    printf "\n"
+fi
+
+# Output short format result if requested
+[ -n "$ARG_S" ] && echo "$MSG_RESULT"
+
+exit $EXIT_STATUS
