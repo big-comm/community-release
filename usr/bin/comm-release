@@ -3,7 +3,7 @@
 # comm-release - Community Distribution Information Tool
 #
 # Based on lsb_release, customized for community distributions
-# Copyright (C) 2025 Community Project
+# Copyright (C) 2025 BigCommunity Project
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,18 +26,21 @@ green="\e[1;38;5;46m"
 yellow="\e[1;38;5;226m"
 red="\e[1;38;5;196m"
 purple="\e[1;38;5;141m"
+orange="\e[1;38;5;208m"
+gray="\e[1;38;5;240m"
 
 ###############################################################################
 #     DECLARATIONS
 ###############################################################################
 
 # Script version
-SCRIPTVERSION="1.0.0"
+SCRIPTVERSION="2.0.0"
 
 # Configuration files
 INFO_ROOT="/etc"
 INFO_LSB_FILE="lsb-release"
 COMM_RELEASE_FILE="comm-release"
+OS_RELEASE_FILE="os-release"
 
 # Exit codes
 EXIT_STATUS="0"
@@ -51,6 +54,18 @@ DEFAULT_DISTRIB_ID="Unknown"
 DEFAULT_DISTRIB_RELEASE="Unknown"
 DEFAULT_DISTRIB_CODENAME="Unknown"
 DEFAULT_DISTRIB_DESCRIPTION="Unknown Distribution"
+
+# Extended information variables
+KERNEL_VERSION=""
+ARCHITECTURE=""
+CPU_INFO=""
+MEMORY_INFO=""
+UPTIME_INFO=""
+INSTALL_DATE=""
+LAST_UPDATE=""
+ENVIRONMENT_TYPE=""
+REPOSITORIES=""
+PENDING_UPDATES=""
 
 # Messages
 MSG_RESULT=""
@@ -73,7 +88,334 @@ T() {
 }
 
 ###############################################################################
-#     FUNCTIONS
+#     UTILITY FUNCTIONS
+###############################################################################
+
+# Check if command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Get file content safely
+safe_read_file() {
+    local file="$1"
+    if [ -r "$file" ]; then
+        cat "$file" 2>/dev/null
+    fi
+}
+
+###############################################################################
+#     EXTENDED DETECTION FUNCTIONS
+###############################################################################
+
+# Detect environment type (bare metal, VM, container, WSL)
+DetectEnvironment() {
+    ENVIRONMENT_TYPE="Bare Metal"
+    
+    # Check for WSL
+    if [ -n "$WSL_DISTRO_NAME" ] || grep -qi microsoft /proc/version 2>/dev/null; then
+        ENVIRONMENT_TYPE="WSL (Windows Subsystem for Linux)"
+        return
+    fi
+    
+    # Check for containers
+    if [ -f /.dockerenv ]; then
+        ENVIRONMENT_TYPE="Docker Container"
+        return
+    fi
+    
+    if [ -f /run/.containerenv ]; then
+        ENVIRONMENT_TYPE="Podman Container"
+        return
+    fi
+    
+    if grep -q "container=" /proc/1/environ 2>/dev/null; then
+        ENVIRONMENT_TYPE="Container"
+        return
+    fi
+    
+    # Check for common virtualization
+    if command_exists systemd-detect-virt; then
+        local virt_type=$(systemd-detect-virt 2>/dev/null)
+        if [ "$virt_type" != "none" ]; then
+            case "$virt_type" in
+                "kvm")         ENVIRONMENT_TYPE="KVM Virtual Machine" ;;
+                "qemu")        ENVIRONMENT_TYPE="QEMU Virtual Machine" ;;
+                "vmware")      ENVIRONMENT_TYPE="VMware Virtual Machine" ;;
+                "virtualbox")  ENVIRONMENT_TYPE="VirtualBox Virtual Machine" ;;
+                "xen")         ENVIRONMENT_TYPE="Xen Virtual Machine" ;;
+                "microsoft")   ENVIRONMENT_TYPE="Hyper-V Virtual Machine" ;;
+                *)             ENVIRONMENT_TYPE="Virtual Machine ($virt_type)" ;;
+            esac
+            return
+        fi
+    fi
+    
+    # Fallback detection methods
+    if [ -r /sys/class/dmi/id/product_name ]; then
+        local product_name=$(cat /sys/class/dmi/id/product_name 2>/dev/null)
+        case "$product_name" in
+            *"VirtualBox"*) ENVIRONMENT_TYPE="VirtualBox Virtual Machine" ;;
+            *"VMware"*)     ENVIRONMENT_TYPE="VMware Virtual Machine" ;;
+            *"QEMU"*)       ENVIRONMENT_TYPE="QEMU Virtual Machine" ;;
+        esac
+    fi
+}
+
+# Get system hardware information
+GetHardwareInfo() {
+    # Architecture
+    ARCHITECTURE=$(uname -m 2>/dev/null || echo "Unknown")
+    
+    # Kernel version
+    KERNEL_VERSION=$(uname -r 2>/dev/null || echo "Unknown")
+    
+    # CPU information
+    if [ -r /proc/cpuinfo ]; then
+        local cpu_model=$(grep "model name" /proc/cpuinfo | head -n1 | cut -d':' -f2 | sed 's/^ *//')
+        local cpu_cores=$(grep -c "^processor" /proc/cpuinfo)
+        if [ -n "$cpu_model" ] && [ -n "$cpu_cores" ]; then
+            CPU_INFO="${cpu_model} (${cpu_cores} cores)"
+        else
+            CPU_INFO="Unknown"
+        fi
+    else
+        CPU_INFO="Unknown"
+    fi
+    
+    # Memory information
+    if [ -r /proc/meminfo ]; then
+        local mem_total=$(grep "MemTotal:" /proc/meminfo | awk '{print $2}')
+        if [ -n "$mem_total" ]; then
+            # Convert from KB to GB
+            local mem_gb=$((mem_total / 1024 / 1024))
+            local mem_mb=$(((mem_total / 1024) % 1024))
+            if [ $mem_gb -gt 0 ]; then
+                MEMORY_INFO="${mem_gb}.$(printf "%01d" $((mem_mb * 10 / 1024))) GB"
+            else
+                MEMORY_INFO="$((mem_total / 1024)) MB"
+            fi
+        else
+            MEMORY_INFO="Unknown"
+        fi
+    else
+        MEMORY_INFO="Unknown"
+    fi
+    
+    # System uptime
+    if [ -r /proc/uptime ]; then
+        local uptime_seconds=$(cut -d'.' -f1 /proc/uptime)
+        local days=$((uptime_seconds / 86400))
+        local hours=$(((uptime_seconds % 86400) / 3600))
+        local minutes=$(((uptime_seconds % 3600) / 60))
+        
+        if [ $days -gt 0 ]; then
+            UPTIME_INFO="${days}d ${hours}h ${minutes}m"
+        elif [ $hours -gt 0 ]; then
+            UPTIME_INFO="${hours}h ${minutes}m"
+        else
+            UPTIME_INFO="${minutes}m"
+        fi
+    else
+        UPTIME_INFO="Unknown"
+    fi
+}
+
+# Get installation and update information
+GetSystemDates() {
+    # Try to find installation date
+    INSTALL_DATE="Unknown"
+    
+    # Method 1: Check first entry in pacman.log (Arch/Manjaro specific)
+    if [ -f /var/log/pacman.log ]; then
+        local first_entry=$(head -n1 /var/log/pacman.log 2>/dev/null)
+        if [ -n "$first_entry" ]; then
+            # Extract date from format: [2021-12-29T21:22:31-0300]
+            local install_date=$(echo "$first_entry" | sed -n 's/^\[\([^T]*\)T.*$/\1/p')
+            if [ -n "$install_date" ]; then
+                # Convert YYYY-MM-DD to more readable format
+                if command_exists date; then
+                    INSTALL_DATE=$(date -d "$install_date" "+%Y-%m-%d" 2>/dev/null || echo "$install_date")
+                else
+                    INSTALL_DATE="$install_date"
+                fi
+            fi
+        fi
+    fi
+    
+    # Method 2: Check root filesystem creation (for ext2/3/4) - fallback
+    if [ "$INSTALL_DATE" = "Unknown" ]; then
+        local root_device=$(df / | tail -n1 | awk '{print $1}' | sed 's/[0-9]*$//')
+        if [ -n "$root_device" ] && command_exists tune2fs; then
+            local fs_created=$(tune2fs -l "$root_device" 2>/dev/null | grep "Filesystem created:" | cut -d':' -f2- | sed 's/^ *//')
+            if [ -n "$fs_created" ]; then
+                INSTALL_DATE="$fs_created"
+            fi
+        fi
+    fi
+    
+    # Method 3: Check filesystem birth time with stat (fallback)
+    if [ "$INSTALL_DATE" = "Unknown" ] && command_exists stat; then
+        # Try different stat options and grep patterns for birth time
+        local birth_time=$(stat / 2>/dev/null | grep -i -E "(birth|criado|created)" | head -n1 | cut -d':' -f2- | sed 's/^ *//' | cut -d'.' -f1)
+        if [ -n "$birth_time" ]; then
+            INSTALL_DATE="$birth_time"
+        fi
+    fi
+    
+    # Get last update information
+    LAST_UPDATE="Unknown"
+    
+    # Method 1: Use expac if available (Arch/Manjaro - most reliable)
+    if command_exists expac; then
+        # Get the most recent package installation/update from all packages
+        local last_update=$(expac --timefmt='%Y-%m-%d %H:%M:%S' '%l\t%n' 2>/dev/null | sort | tail -n1 | cut -f1)
+        if [ -n "$last_update" ]; then
+            LAST_UPDATE="$last_update"
+        fi
+    fi
+    
+    # Method 2: Check pacman.log if expac failed
+    if [ "$LAST_UPDATE" = "Unknown" ] && [ -f /var/log/pacman.log ]; then
+        # Look for recent package operations
+        local last_operation=$(tail -n 200 /var/log/pacman.log 2>/dev/null | grep -E "\[ALPM\].*(installed|upgraded|removed)" | tail -n1)
+        if [ -n "$last_operation" ]; then
+            # Extract date from format: [2025-05-12T00:48:40-0300]
+            local update_date=$(echo "$last_operation" | sed -n 's/^\[\([^T]*\)T\([^-+]*\).*$/\1 \2/p')
+            if [ -n "$update_date" ]; then
+                LAST_UPDATE="$update_date"
+            fi
+        fi
+    fi
+    
+    # Method 3: Other package managers (fallback)
+    if [ "$LAST_UPDATE" = "Unknown" ]; then
+        if [ -f /var/log/dpkg.log ]; then
+            # Debian/Ubuntu
+            local last_dpkg=$(tail -n 100 /var/log/dpkg.log 2>/dev/null | grep "install\|upgrade\|configure" | tail -n1 | awk '{print $1, $2}')
+            if [ -n "$last_dpkg" ]; then
+                LAST_UPDATE="$last_dpkg"
+            fi
+        elif [ -f /var/log/dnf.log ]; then
+            # Fedora (DNF)
+            local last_dnf=$(tail -n 100 /var/log/dnf.log 2>/dev/null | grep "Installed\|Updated" | tail -n1 | awk '{print $1, $2}')
+            if [ -n "$last_dnf" ]; then
+                LAST_UPDATE="$last_dnf"
+            fi
+        elif [ -f /var/log/yum.log ]; then
+            # Red Hat/CentOS (YUM)
+            local last_yum=$(tail -n 100 /var/log/yum.log 2>/dev/null | grep "Installed\|Updated" | tail -n1 | awk '{print $1, $2}')
+            if [ -n "$last_yum" ]; then
+                LAST_UPDATE="$last_yum"
+            fi
+        fi
+    fi
+}
+
+# Get repository information
+GetRepositoryInfo() {
+    REPOSITORIES="Unknown"
+    
+    # Arch Linux / Manjaro (Pacman)
+    if [ -f /etc/pacman.conf ]; then
+        local enabled_repos=$(grep -c "^\[.*\]" /etc/pacman.conf 2>/dev/null || echo 0)
+        # Subtract [options] section
+        enabled_repos=$((enabled_repos - 1))
+        if [ $enabled_repos -gt 0 ]; then
+            REPOSITORIES="$enabled_repos Pacman repositories"
+        fi
+    
+    # Debian/Ubuntu (APT)
+    elif [ -d /etc/apt/sources.list.d ] || [ -f /etc/apt/sources.list ]; then
+        local enabled_repos=0
+        
+        # Count main sources.list
+        if [ -f /etc/apt/sources.list ]; then
+            enabled_repos=$((enabled_repos + $(grep -c "^deb " /etc/apt/sources.list 2>/dev/null || echo 0)))
+        fi
+        
+        # Count sources.list.d
+        if [ -d /etc/apt/sources.list.d ]; then
+            for file in /etc/apt/sources.list.d/*.list; do
+                if [ -f "$file" ]; then
+                    enabled_repos=$((enabled_repos + $(grep -c "^deb " "$file" 2>/dev/null || echo 0)))
+                fi
+            done
+        fi
+        
+        if [ $enabled_repos -gt 0 ]; then
+            REPOSITORIES="$enabled_repos APT repositories"
+        fi
+    
+    # Red Hat/Fedora (YUM/DNF)
+    elif [ -d /etc/yum.repos.d ]; then
+        local enabled_repos=0
+        for file in /etc/yum.repos.d/*.repo; do
+            if [ -f "$file" ]; then
+                enabled_repos=$((enabled_repos + $(grep -c "^\[.*\]" "$file" 2>/dev/null || echo 0)))
+            fi
+        done
+        if [ $enabled_repos -gt 0 ]; then
+            REPOSITORIES="$enabled_repos YUM/DNF repositories"
+        fi
+    fi
+}
+
+# Check for pending updates
+GetPendingUpdates() {
+    PENDING_UPDATES="Unknown"
+    
+    # Arch Linux / Manjaro (Pacman)
+    if command_exists pacman; then
+        # First try checkupdates (more reliable)
+        if command_exists checkupdates; then
+            local upgradable=$(checkupdates 2>/dev/null | wc -l || echo 0)
+            if [ $upgradable -gt 0 ]; then
+                PENDING_UPDATES="$upgradable packages"
+            else
+                PENDING_UPDATES="None"
+            fi
+        else
+            # Fallback to pacman -Qu (may require sync)
+            local upgradable=$(pacman -Qu 2>/dev/null | wc -l || echo 0)
+            if [ $upgradable -gt 0 ]; then
+                PENDING_UPDATES="$upgradable packages"
+            else
+                PENDING_UPDATES="None"
+            fi
+        fi
+    
+    # Debian/Ubuntu (APT)
+    elif command_exists apt-get; then
+        local upgradable=$(apt list --upgradable 2>/dev/null | grep -c "upgradable" || echo 0)
+        if [ $upgradable -gt 0 ]; then
+            PENDING_UPDATES="$upgradable packages"
+        else
+            PENDING_UPDATES="None"
+        fi
+    
+    # Red Hat/Fedora (DNF)
+    elif command_exists dnf; then
+        local upgradable=$(dnf check-update -q 2>/dev/null | wc -l || echo 0)
+        if [ $upgradable -gt 0 ]; then
+            PENDING_UPDATES="$upgradable packages"
+        else
+            PENDING_UPDATES="None"
+        fi
+    
+    # Red Hat/CentOS (YUM)
+    elif command_exists yum; then
+        local upgradable=$(yum check-update -q 2>/dev/null | wc -l || echo 0)
+        if [ $upgradable -gt 0 ]; then
+            PENDING_UPDATES="$upgradable packages"
+        else
+            PENDING_UPDATES="None"
+        fi
+    fi
+}
+
+###############################################################################
+#     ORIGINAL FUNCTIONS (MANTIDAS)
 ###############################################################################
 
 # Display error messages
@@ -120,6 +462,7 @@ Usage() {
     printf "  ${cyan}-r, --release${reset}     ${white}%s${reset}\n" "$(T "Display the release number")"
     printf "  ${cyan}-c, --codename${reset}    ${white}%s${reset}\n" "$(T "Display the codename")"
     printf "  ${cyan}-a, --all${reset}         ${white}%s${reset}\n" "$(T "Display all information")"
+    printf "  ${cyan}-e, --extended${reset}    ${white}%s${reset}\n" "$(T "Display extended system information")"
     printf "  ${cyan}-s, --short${reset}       ${white}%s${reset}\n" "$(T "Use short output format")"
     printf "  ${cyan}-b, --banner${reset}      ${white}%s${reset}\n" "$(T "Display with banner")"
     printf "  ${cyan}-h, --help${reset}        ${white}%s${reset}\n" "$(T "Display this help message")"
@@ -132,13 +475,13 @@ Usage() {
 EnhancedGetopt() {
     getopt -T >/dev/null 2>&1
     if [ $? = 4 ]; then
-        OPT=$(getopt -o acdhirsbp \
---long all,codename,description,help,id,release,short,banner,program-version \
+        OPT=$(getopt -o acdhirsbpe \
+--long all,codename,description,help,id,release,short,banner,program-version,extended \
               -n 'comm-release' \
               -- "$@")
     else
         MYARGS=$(echo "$@" | sed -e "/--/s/-\(-[[:alnum:]]\)[[:alnum:]]*/\1/g")
-        OPT=$(getopt -o acdhirsbp \
+        OPT=$(getopt -o acdhirsbpe \
                      -n 'comm-release' \
                      -- "$MYARGS")
     fi
@@ -156,6 +499,7 @@ EnhancedGetopt() {
         -d|--description) ARG_D="y"; NB_ARG="y"; shift;;
         -i|--id) ARG_I="y"; NB_ARG="y"; shift;;
         -r|--release) ARG_R="y"; NB_ARG="y"; shift;;
+        -e|--extended) ARG_E="y"; NB_ARG="y"; shift;;
         -s|--short) ARG_S="y"; shift;;
         -b|--banner) ARG_B="y"; shift;;
         -p|--program-version) DisplayProgramVersion;;
@@ -166,7 +510,7 @@ EnhancedGetopt() {
     done
 }
 
-# Get distribution information
+# Get distribution information (MANTIDA A LÓGICA ORIGINAL)
 GetDistribInfo() {
     # Initialize with empty values
     DISTRIB_ID=""
@@ -180,6 +524,15 @@ GetDistribInfo() {
     # Second priority: Try to read from /etc/lsb-release  
     elif [ -f "$INFO_ROOT/$INFO_LSB_FILE" ]; then
         . "$INFO_ROOT/$INFO_LSB_FILE"
+    # Third priority: Try to read from /etc/os-release
+    elif [ -f "$INFO_ROOT/$OS_RELEASE_FILE" ]; then
+        # Source the file to get variables
+        . "$INFO_ROOT/$OS_RELEASE_FILE"
+        # Map os-release variables to our format if our variables are empty
+        [ -z "$DISTRIB_ID" ] && [ -n "$ID" ] && DISTRIB_ID="$ID"
+        [ -z "$DISTRIB_RELEASE" ] && [ -n "$VERSION_ID" ] && DISTRIB_RELEASE="$VERSION_ID"
+        [ -z "$DISTRIB_CODENAME" ] && [ -n "$VERSION_CODENAME" ] && DISTRIB_CODENAME="$VERSION_CODENAME"
+        [ -z "$DISTRIB_DESCRIPTION" ] && [ -n "$PRETTY_NAME" ] && DISTRIB_DESCRIPTION="$PRETTY_NAME"
     fi
     
     # Set generic defaults for any missing values
@@ -187,9 +540,16 @@ GetDistribInfo() {
     [ -z "$DISTRIB_RELEASE" ] && DISTRIB_RELEASE="$DEFAULT_DISTRIB_RELEASE"
     [ -z "$DISTRIB_CODENAME" ] && DISTRIB_CODENAME="$DEFAULT_DISTRIB_CODENAME"
     [ -z "$DISTRIB_DESCRIPTION" ] && DISTRIB_DESCRIPTION="$DEFAULT_DISTRIB_DESCRIPTION"
+    
+    # Get extended system information
+    DetectEnvironment
+    GetHardwareInfo
+    GetSystemDates
+    GetRepositoryInfo
+    GetPendingUpdates
 }
 
-# Display functions with beautiful formatting
+# Display functions with beautiful formatting (MANTIDAS)
 DisplayID() {
     if [ -z "$ARG_S" ]; then
         printf "${blueDark}%s:${reset}    ${cyan}%s${reset}\n" "$(T "Distributor ID")" "$DISTRIB_ID"
@@ -222,7 +582,26 @@ DisplayCodename() {
     fi
 }
 
-# Display beautiful separator
+# Display extended system information (NOVA)
+DisplayExtended() {
+    if [ -z "$ARG_S" ]; then
+        printf "\n${purple}%s${reset}\n" "$(T "=== SYSTEM INFORMATION ===")"
+        printf "${blueDark}%s:${reset}       ${green}%s${reset}\n" "$(T "Environment")" "$ENVIRONMENT_TYPE"
+        printf "${blueDark}%s:${reset}      ${yellow}%s${reset}\n" "$(T "Architecture")" "$ARCHITECTURE"
+        printf "${blueDark}%s:${reset}     ${lightBlue}%s${reset}\n" "$(T "Kernel Version")" "$KERNEL_VERSION"
+        printf "${blueDark}%s:${reset}         ${orange}%s${reset}\n" "$(T "Processor")" "$CPU_INFO"
+        printf "${blueDark}%s:${reset}            ${cyan}%s${reset}\n" "$(T "Memory")" "$MEMORY_INFO"
+        printf "${blueDark}%s:${reset}            ${green}%s${reset}\n" "$(T "Uptime")" "$UPTIME_INFO"
+        
+        printf "\n${purple}%s${reset}\n" "$(T "=== SYSTEM STATUS ===")"
+        printf "${blueDark}%s:${reset}     ${gray}%s${reset}\n" "$(T "Install Date")" "$INSTALL_DATE"
+        printf "${blueDark}%s:${reset}      ${gray}%s${reset}\n" "$(T "Last Update")" "$LAST_UPDATE"
+        printf "${blueDark}%s:${reset}      ${lightBlue}%s${reset}\n" "$(T "Repositories")" "$REPOSITORIES"
+        printf "${blueDark}%s:${reset}   ${yellow}%s${reset}\n" "$(T "Pending Updates")" "$PENDING_UPDATES"
+    fi
+}
+
+# Display beautiful separator (MANTIDA)
 DisplaySeparator() {
     if [ -z "$ARG_S" ]; then
         printf "${cyan}────────────────────────────────────────────────${reset}\n"
@@ -256,6 +635,7 @@ if [ -n "$ARG_A" ]; then
     [ -z "$ARG_I" ] && ARG_I="y"
     [ -z "$ARG_R" ] && ARG_R="y"
     ARG_B="y"  # Show banner for --all
+    ARG_E="y"  # Show extended info for --all
 fi
 
 # Initialize distribution information
@@ -279,10 +659,16 @@ fi
 [ -n "$ARG_R" ] && DisplayRelease
 [ -n "$ARG_C" ] && DisplayCodename
 
+# Display extended information if requested
+[ -n "$ARG_E" ] && DisplayExtended
+
 # Display final separator and footer for detailed output
 if [ -z "$ARG_S" ] && ([ -n "$ARG_A" ] || [ -n "$ARG_B" ]); then
     DisplaySeparator
     printf "${purple}%s${reset} • ${yellow}%s${reset}\n" "$(T "BigCommunity Distribution")" "$(T "Built with ❤️")"
+    printf "${gray}%s${reset} ${cyan}https://communitybig.org${reset}\n" "$(T "More info:")"
+    printf "${gray}%s${reset} ${lightBlue}https://t.me/BigLinuxCommunity${reset}\n" "$(T "Support:")"
+    printf "${gray}%s${reset} ${orange}https://t.me/DoacaoCommunityBot${reset}\n" "$(T "Donate:")"
     printf "\n"
 fi
 
