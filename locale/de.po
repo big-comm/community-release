@@ -1,0 +1,169 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: comm-release\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-07 15:38\n"
+"PO-Revision-Date: 2026-03-07 15:38\n"
+"Last-Translator: Translation Automator <auto@translator.ai>\n"
+"Language-Team: German <de@li.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:37
+msgid "Distribution Information"
+msgstr "Verteilungsinformationen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:58
+msgid "Distributor ID"
+msgstr "Distributor-ID"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:60
+msgid "Description"
+msgstr "Beschreibung"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:62
+msgid "Release"
+msgstr "Version"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:64
+msgid "Codename"
+msgstr "Codename"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:88
+msgid "Environment"
+msgstr "Umgebung"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:89
+msgid "Architecture"
+msgstr "Architektur"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:90
+msgid "Kernel"
+msgstr "Kernel"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:91
+msgid "Processor"
+msgstr "Prozessor"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:92
+msgid "Memory"
+msgstr "Speicher"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:93
+msgid "Uptime"
+msgstr "Betriebszeit"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:97
+msgid "System Info"
+msgstr "Systeminformationen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:115
+msgid "Install Date"
+msgstr "Installationsdatum"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:116
+msgid "Last Update"
+msgstr "Letzte Aktualisierung"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:117
+msgid "Repositories"
+msgstr "Repositorys"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:118
+msgid "Pending Updates"
+msgstr "Ausstehende Updates"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:122
+msgid "System Status"
+msgstr "Systemstatus"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:143
+msgid "Website:"
+msgstr "Website:"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:144
+msgid "Support:"
+msgstr "Support:"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:145
+msgid "Donate: "
+msgstr "Spenden:"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:166
+msgid "Distribution Information Tool"
+msgstr "Verteilung Informationswerkzeug"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:173
+msgid "Usage"
+msgstr "Nutzung"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:181
+msgid ""
+"With no OPTION specified defaults to showing all information (same as -a)."
+msgstr ""
+"Ohne angegebene OPTION wird standardmäßig alle Informationen angezeigt "
+"(gleich wie -a)."
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:187
+msgid "Options:"
+msgstr "Optionen:"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:191
+msgid "Display the distributor ID"
+msgstr "Distributor-ID anzeigen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:192
+msgid "Display the distribution description"
+msgstr "Verteilungsbeschreibung anzeigen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:193
+msgid "Display the release number"
+msgstr "Versionsnummer anzeigen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:194
+msgid "Display the codename"
+msgstr "Codename anzeigen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:195
+msgid "Display all information"
+msgstr "Alle Informationen anzeigen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:196
+msgid "Display extended system information"
+msgstr "Erweiterte Systeminformationen anzeigen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:197
+msgid "Use short output format (plain text)"
+msgstr "Verwenden Sie das Kurzformat (reiner Text)"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:198
+msgid "Display with banner"
+msgstr "Anzeige mit Banner"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:199
+msgid "Display program version"
+msgstr "Programmversion anzeigen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:200
+msgid "Display this help message"
+msgstr "Diese Hilfemeldung anzeigen"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:224
+msgid "Copyright (C) 2025 BigCommunity"
+msgstr "Copyright (C) 2025 BigCommunity"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:227
+msgid "This is free software; see the source for copying conditions."
+msgstr ""
+"Dies ist freie Software; siehe den Quellcode für die Kopierbedingungen."
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:239
+msgid "Error"
+msgstr "Fehler"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/main.py:62
+msgid "unknown option"
+msgstr "unbekannte Option"

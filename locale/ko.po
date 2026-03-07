@@ -1,0 +1,166 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: comm-release\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-07 15:53\n"
+"PO-Revision-Date: 2026-03-07 15:53\n"
+"Last-Translator: Translation Automator <auto@translator.ai>\n"
+"Language-Team: Korean <ko@li.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:37
+msgid "Distribution Information"
+msgstr "배포 정보"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:58
+msgid "Distributor ID"
+msgstr "배급사 ID"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:60
+msgid "Description"
+msgstr "설명"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:62
+msgid "Release"
+msgstr "릴리스"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:64
+msgid "Codename"
+msgstr "코드명"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:88
+msgid "Environment"
+msgstr "환경"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:89
+msgid "Architecture"
+msgstr "아키텍처"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:90
+msgid "Kernel"
+msgstr "커널"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:91
+msgid "Processor"
+msgstr "프로세서"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:92
+msgid "Memory"
+msgstr "메모리"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:93
+msgid "Uptime"
+msgstr "가동 시간"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:97
+msgid "System Info"
+msgstr "시스템 정보"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:115
+msgid "Install Date"
+msgstr "설치 날짜"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:116
+msgid "Last Update"
+msgstr "마지막 업데이트"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:117
+msgid "Repositories"
+msgstr "저장소"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:118
+msgid "Pending Updates"
+msgstr "대기 중인 업데이트"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:122
+msgid "System Status"
+msgstr "시스템 상태"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:143
+msgid "Website:"
+msgstr "웹사이트:"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:144
+msgid "Support:"
+msgstr "지원:"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:145
+msgid "Donate: "
+msgstr "기부:"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:166
+msgid "Distribution Information Tool"
+msgstr "배포 정보 도구"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:173
+msgid "Usage"
+msgstr "사용법"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:181
+msgid ""
+"With no OPTION specified defaults to showing all information (same as -a)."
+msgstr "지정된 옵션이 없으면 모든 정보를 표시합니다 (옵션 -a와 동일)."
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:187
+msgid "Options:"
+msgstr "옵션:"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:191
+msgid "Display the distributor ID"
+msgstr "배급자 ID 표시"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:192
+msgid "Display the distribution description"
+msgstr "배포 설명 표시"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:193
+msgid "Display the release number"
+msgstr "릴리스 번호 표시"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:194
+msgid "Display the codename"
+msgstr "코드명 표시"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:195
+msgid "Display all information"
+msgstr "모든 정보 표시"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:196
+msgid "Display extended system information"
+msgstr "확장된 시스템 정보 표시"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:197
+msgid "Use short output format (plain text)"
+msgstr "짧은 출력 형식 사용"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:198
+msgid "Display with banner"
+msgstr "배너로 표시"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:199
+msgid "Display program version"
+msgstr "프로그램 버전 표시"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:200
+msgid "Display this help message"
+msgstr "이 도움말 메시지 표시"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:224
+msgid "Copyright (C) 2025 BigCommunity"
+msgstr "저작권 (C) 2025 BigCommunity"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:227
+msgid "This is free software; see the source for copying conditions."
+msgstr "이것은 무료 소프트웨어입니다; 복사 조건은 소스를 참조하십시오."
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:239
+msgid "Error"
+msgstr "오류"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/main.py:62
+msgid "unknown option"
+msgstr "알 수 없는 옵션"
