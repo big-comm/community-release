@@ -1,0 +1,206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the community-release package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid   ""
+msgstr  "Project-Id-Version: community-release\n"
+        "Report-Msgid-Bugs-To: \n"
+        "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+        "Language-Team: LANGUAGE <LL@li.org>\n"
+        "Language: \n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
+
+#
+# File: usr/share/comm-release/main.py, line: 62
+msgid   "unknown option"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 37
+msgid   "Distribution Information"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 58
+msgid   "Distributor ID"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 60
+msgid   "Description"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 62
+msgid   "Release"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 64
+msgid   "Codename"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 88
+msgid   "Environment"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 89
+msgid   "Architecture"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 90
+msgid   "Kernel"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 91
+msgid   "Processor"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 92
+msgid   "Memory"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 93
+msgid   "Uptime"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 97
+msgid   "System Info"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 115
+msgid   "Install Date"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 116
+msgid   "Last Update"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 117
+msgid   "Repositories"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 118
+msgid   "Pending Updates"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 122
+msgid   "System Status"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 143
+msgid   "Website:"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 144
+msgid   "Support:"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 145
+msgid   "Donate: "
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 166
+msgid   "Distribution Information Tool"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 173
+msgid   "Usage"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 181
+msgid   "With no OPTION specified defaults to showing all information (same "
+        "as -a)."
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 187
+msgid   "Options:"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 191
+msgid   "Display the distributor ID"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 192
+msgid   "Display the distribution description"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 193
+msgid   "Display the release number"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 194
+msgid   "Display the codename"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 195
+msgid   "Display all information"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 196
+msgid   "Display extended system information"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 197
+msgid   "Use short output format (plain text)"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 198
+msgid   "Display with banner"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 199
+msgid   "Display program version"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 200
+msgid   "Display this help message"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 224
+msgid   "Copyright (C) 2025 BigCommunity"
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 227
+msgid   "This is free software; see the source for copying conditions."
+msgstr  ""
+
+#
+# File: usr/share/comm-release/display.py, line: 239
+msgid   "Error"
+msgstr  ""
