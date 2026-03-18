@@ -9,119 +9,156 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:37
 msgid "Distribution Information"
-msgstr "Dağıtım Bilgisi"
+msgstr "Dağıtım Bilgileri"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:58
 msgid "Distributor ID"
 msgstr "Dağıtıcı Kimliği"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:60
 msgid "Description"
 msgstr "Açıklama"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:62
 msgid "Release"
 msgstr "Sürüm"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:64
 msgid "Codename"
 msgstr "Kod Adı"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:88
 msgid "Environment"
 msgstr "Ortam"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:89
 msgid "Architecture"
 msgstr "Mimari"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:90
 msgid "Kernel"
 msgstr "Çekirdek"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:91
 msgid "Processor"
 msgstr "İşlemci"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:92
 msgid "Memory"
 msgstr "Bellek"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:93
 msgid "Uptime"
 msgstr "Çalışma Süresi"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:97
 msgid "System Info"
 msgstr "Sistem Bilgisi"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:115
 msgid "Install Date"
 msgstr "Kurulum Tarihi"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:116
 msgid "Last Update"
 msgstr "Son Güncelleme"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:117
 msgid "Repositories"
 msgstr "Depolar"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:118
 msgid "Pending Updates"
 msgstr "Bekleyen Güncellemeler"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:122
 msgid "System Status"
 msgstr "Sistem Durumu"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:143
 msgid "Website:"
 msgstr "Web Sitesi:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:144
 msgid "Support:"
 msgstr "Destek:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:145
 msgid "Donate: "
 msgstr "Bağış Yap:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:166
 msgid "Distribution Information Tool"
 msgstr "Dağıtım Bilgileri Aracı"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:173
 msgid "Usage"
 msgstr "Kullanım"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:181
 msgid ""
 "With no OPTION specified defaults to showing all information (same as -a)."
-msgstr ""
-"Hiçbir SEÇENEK belirtilmediğinde tüm bilgileri gösterir (aynı -a gibi)."
+msgstr "SEÇENEK belirtilmezse tüm bilgileri gösterir (tıpkı -a gibi)."
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:187
 msgid "Options:"
 msgstr "Seçenekler:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:191
 msgid "Display the distributor ID"
 msgstr "Dağıtıcı kimliğini göster"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:192
 msgid "Display the distribution description"
 msgstr "Dağıtım açıklamasını göster"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:193
 msgid "Display the release number"
 msgstr "Sürüm numarasını göster"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:194
 msgid "Display the codename"
 msgstr "Kod adını göster"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:195
 msgid "Display all information"
 msgstr "Tüm bilgileri göster"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:196
 msgid "Display extended system information"
 msgstr "Genişletilmiş sistem bilgilerini göster"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:197
 msgid "Use short output format (plain text)"
-msgstr "Kısa çıktı formatını kullanın"
+msgstr "Kısa çıktı formatını kullan (düz metin)"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:198
 msgid "Display with banner"
 msgstr "Afiş ile göster"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:199
 msgid "Display program version"
 msgstr "Program sürümünü göster"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:200
 msgid "Display this help message"
 msgstr "Bu yardım mesajını göster"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:224
 msgid "Copyright (C) 2025 BigCommunity"
 msgstr "Telif Hakkı (C) 2025 BigCommunity"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:227
 msgid "This is free software; see the source for copying conditions."
-msgstr "Bu ücretsiz bir yazılımdır; kopyalama koşulları için kaynağa bakın."
+msgstr "Bu özgür bir yazılımdır; kopyalama koşulları için kaynağa bakınız."
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:239
 msgid "Error"
 msgstr "Hata"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/main.py:62
 msgid "unknown option"
 msgstr "bilinmeyen seçenek"

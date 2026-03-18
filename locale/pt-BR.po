@@ -4,7 +4,7 @@ msgstr ""
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:37
 msgid "Distribution Information"
-msgstr "Informações de Distribuição"
+msgstr "Informações da Distribuição"
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:58
 msgid "Distributor ID"
@@ -84,7 +84,7 @@ msgstr "Doe:"
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:166
 msgid "Distribution Information Tool"
-msgstr "Ferramenta de Informações de Distribuição"
+msgstr "Ferramenta de Informações da Distribuição"
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:173
 msgid "Usage"
@@ -94,8 +94,8 @@ msgstr "Uso"
 msgid ""
 "With no OPTION specified defaults to showing all information (same as -a)."
 msgstr ""
-"Sem nenhuma OPÇÃO especificada, o padrão é mostrar todas as informações "
-"(igual a -a)."
+"Sem uma OPÇÃO especificada, exibe todas as informações por padrão (igual a "
+"-a)."
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:187
 msgid "Options:"
@@ -123,11 +123,11 @@ msgstr "Exibir todas as informações"
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:196
 msgid "Display extended system information"
-msgstr "Exibir informações detalhadas do sistema"
+msgstr "Exibir informações estendidas do sistema"
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:197
 msgid "Use short output format (plain text)"
-msgstr "Use o formato de saída curto (texto simples)"
+msgstr "Usar formato de saída curto (texto simples)"
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:198
 msgid "Display with banner"
@@ -148,7 +148,7 @@ msgstr "Copyright (C) 2025 BigCommunity"
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:227
 msgid "This is free software; see the source for copying conditions."
 msgstr ""
-"Este é um software livre; veja o código-fonte para as condições de cópia."
+"Este é um software livre; consulte o código-fonte para condições de cópia."
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:239
 msgid "Error"

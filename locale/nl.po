@@ -9,119 +9,158 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:37
 msgid "Distribution Information"
 msgstr "Distributie-informatie"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:58
 msgid "Distributor ID"
 msgstr "Distributeur-ID"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:60
 msgid "Description"
 msgstr "Beschrijving"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:62
 msgid "Release"
 msgstr "Release"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:64
 msgid "Codename"
 msgstr "Codenaam"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:88
 msgid "Environment"
 msgstr "Omgeving"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:89
 msgid "Architecture"
 msgstr "Architectuur"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:90
 msgid "Kernel"
 msgstr "Kernel"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:91
 msgid "Processor"
 msgstr "Processor"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:92
 msgid "Memory"
 msgstr "Geheugen"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:93
 msgid "Uptime"
 msgstr "Uptime"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:97
 msgid "System Info"
 msgstr "Systeeminfo"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:115
 msgid "Install Date"
 msgstr "Installatiedatum"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:116
 msgid "Last Update"
 msgstr "Laatste update"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:117
 msgid "Repositories"
 msgstr "Repositories"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:118
 msgid "Pending Updates"
 msgstr "In afwachting van updates"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:122
 msgid "System Status"
 msgstr "Systeemstatus"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:143
 msgid "Website:"
 msgstr "Website:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:144
 msgid "Support:"
 msgstr "Ondersteuning:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:145
 msgid "Donate: "
 msgstr "Doneer:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:166
 msgid "Distribution Information Tool"
-msgstr "Distributie-informatie tool"
+msgstr "Distributie-informatietool"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:173
 msgid "Usage"
 msgstr "Gebruik"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:181
 msgid ""
 "With no OPTION specified defaults to showing all information (same as -a)."
 msgstr ""
-"Zonder opgegeven OPTIE toont standaard alle informatie (zelfde als -a)."
+"Als er geen OPTIE is opgegeven, worden standaard alle gegevens weergegeven "
+"(hetzelfde als -a)."
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:187
 msgid "Options:"
 msgstr "Opties:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:191
 msgid "Display the distributor ID"
 msgstr "Toon de distributeur-ID"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:192
 msgid "Display the distribution description"
 msgstr "Toon de distributiebeschrijving"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:193
 msgid "Display the release number"
 msgstr "Toon het versienummer"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:194
 msgid "Display the codename"
 msgstr "Toon de codenaam"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:195
 msgid "Display all information"
 msgstr "Toon alle informatie"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:196
 msgid "Display extended system information"
-msgstr "Toon uitgebreide systeeminformatie"
+msgstr "Uitgebreide systeeminformatie weergeven"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:197
 msgid "Use short output format (plain text)"
-msgstr "Gebruik korte uitvoerformat (platte tekst)"
+msgstr "Gebruik kort uitvoerformaat (platte tekst)"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:198
 msgid "Display with banner"
 msgstr "Toon met banner"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:199
 msgid "Display program version"
 msgstr "Toon programmaversie"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:200
 msgid "Display this help message"
 msgstr "Toon dit helpbericht"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:224
 msgid "Copyright (C) 2025 BigCommunity"
 msgstr "Copyright (C) 2025 BigCommunity"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:227
 msgid "This is free software; see the source for copying conditions."
-msgstr "Dit is gratis software; zie de bron voor kopieervoorwaarden."
+msgstr "Dit is vrije software; zie de bron voor kopieervoorwaarden."
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:239
 msgid "Error"
 msgstr "Fout"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/main.py:62
 msgid "unknown option"
 msgstr "onbekende optie"

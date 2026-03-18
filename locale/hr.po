@@ -9,119 +9,157 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:37
 msgid "Distribution Information"
 msgstr "Informacije o distribuciji"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:58
 msgid "Distributor ID"
 msgstr "ID distributera"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:60
 msgid "Description"
 msgstr "Opis"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:62
 msgid "Release"
 msgstr "Izdanje"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:64
 msgid "Codename"
 msgstr "Kodno ime"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:88
 msgid "Environment"
 msgstr "Okruženje"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:89
 msgid "Architecture"
 msgstr "Arhitektura"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:90
 msgid "Kernel"
 msgstr "Jezgra"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:91
 msgid "Processor"
 msgstr "Procesor"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:92
 msgid "Memory"
 msgstr "Memorija"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:93
 msgid "Uptime"
 msgstr "Vrijeme rada"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:97
 msgid "System Info"
 msgstr "Informacije o sustavu"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:115
 msgid "Install Date"
 msgstr "Datum instalacije"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:116
 msgid "Last Update"
 msgstr "Zadnja ažuriranja"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:117
 msgid "Repositories"
 msgstr "Repozitoriji"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:118
 msgid "Pending Updates"
 msgstr "Čekajući ažuriranja"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:122
 msgid "System Status"
 msgstr "Status sustava"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:143
 msgid "Website:"
 msgstr "Web stranica:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:144
 msgid "Support:"
 msgstr "Podrška:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:145
 msgid "Donate: "
 msgstr "Donirajte:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:166
 msgid "Distribution Information Tool"
 msgstr "Alat za informacije o distribuciji"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:173
 msgid "Usage"
 msgstr "Korištenje"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:181
 msgid ""
 "With no OPTION specified defaults to showing all information (same as -a)."
 msgstr ""
-"Bez specificirane OPCIJE zadano prikazuje sve informacije (isto kao -a)."
+"Ako nije navedena OPCIJA, zadano prikazuje sve informacije (isto kao -a)."
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:187
 msgid "Options:"
 msgstr "Opcije:"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:191
 msgid "Display the distributor ID"
 msgstr "Prikaži ID distributera"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:192
 msgid "Display the distribution description"
 msgstr "Prikaži opis distribucije"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:193
 msgid "Display the release number"
 msgstr "Prikaži broj izdanja"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:194
 msgid "Display the codename"
 msgstr "Prikaži kodno ime"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:195
 msgid "Display all information"
 msgstr "Prikaži sve informacije"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:196
 msgid "Display extended system information"
 msgstr "Prikaži proširene informacije o sustavu"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:197
 msgid "Use short output format (plain text)"
-msgstr "Koristite kratki format izlaza (plain text)"
+msgstr "Koristi kratki format izlaza (obični tekst)"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:198
 msgid "Display with banner"
 msgstr "Prikaži s bannerom"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:199
 msgid "Display program version"
 msgstr "Prikaži verziju programa"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:200
 msgid "Display this help message"
 msgstr "Prikaži ovu pomoćnu poruku"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:224
 msgid "Copyright (C) 2025 BigCommunity"
 msgstr "Autorska prava (C) 2025 BigCommunity"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:227
 msgid "This is free software; see the source for copying conditions."
-msgstr "Ovo je besplatni softver; pogledajte izvor za uvjete kopiranja."
+msgstr "Ovo je slobodan softver; pogledajte izvor za uvjete kopiranja."
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:239
 msgid "Error"
 msgstr "Greška"
+
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/main.py:62
 msgid "unknown option"
 msgstr "nepoznata opcija"
