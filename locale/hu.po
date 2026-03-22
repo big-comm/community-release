@@ -9,158 +9,120 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:37
 msgid "Distribution Information"
 msgstr "Terjesztési információk"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:58
 msgid "Distributor ID"
 msgstr "Forgalmazó azonosító"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:60
 msgid "Description"
 msgstr "Leírás"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:62
 msgid "Release"
 msgstr "Kiadás"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:64
 msgid "Codename"
 msgstr "Kódnév"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:88
 msgid "Environment"
 msgstr "Környezet"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:89
 msgid "Architecture"
 msgstr "Architektúra"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:90
 msgid "Kernel"
 msgstr "Kernel"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:91
 msgid "Processor"
 msgstr "Processzor"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:92
 msgid "Memory"
 msgstr "Memória"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:93
 msgid "Uptime"
 msgstr "Futási idő"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:97
 msgid "System Info"
 msgstr "Rendszerinformáció"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:115
 msgid "Install Date"
 msgstr "Telepítési dátum"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:116
 msgid "Last Update"
 msgstr "Utolsó frissítés"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:117
 msgid "Repositories"
 msgstr "Tárhelyek"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:118
 msgid "Pending Updates"
 msgstr "Függő frissítések"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:122
 msgid "System Status"
 msgstr "Rendszer állapot"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:143
 msgid "Website:"
 msgstr "Weboldal:"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:144
 msgid "Support:"
 msgstr "Támogatás:"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:145
 msgid "Donate: "
 msgstr "Adományozás:"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:166
 msgid "Distribution Information Tool"
 msgstr "Terjesztési információs eszköz"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:173
 msgid "Usage"
 msgstr "Használat"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:181
 msgid ""
 "With no OPTION specified defaults to showing all information (same as -a)."
 msgstr ""
 "Ha nincs megadva OPCIÓ, alapértelmezés szerint az összes információt mutatja"
 " (ugyanaz, mint a -a)."
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:187
 msgid "Options:"
 msgstr "Opciók:"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:191
 msgid "Display the distributor ID"
 msgstr "A forgalmazó azonosítójának megjelenítése"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:192
 msgid "Display the distribution description"
 msgstr "A terjesztés leírásának megjelenítése"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:193
 msgid "Display the release number"
 msgstr "A kiadási szám megjelenítése"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:194
 msgid "Display the codename"
 msgstr "A kódnév megjelenítése"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:195
 msgid "Display all information"
 msgstr "Minden információ megjelenítése"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:196
 msgid "Display extended system information"
 msgstr "Kiterjesztett rendszerinformációk megjelenítése"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:197
 msgid "Use short output format (plain text)"
 msgstr "Rövid kimeneti formátum használata (egyszerű szöveg)"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:198
 msgid "Display with banner"
 msgstr "Banner megjelenítése"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:199
 msgid "Display program version"
 msgstr "Programverzió megjelenítése"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:200
 msgid "Display this help message"
 msgstr "Ez a súgóüzenet"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:224
 msgid "Copyright (C) 2025 BigCommunity"
 msgstr "Copyright (C) 2025 BigCommunity"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:227
 msgid "This is free software; see the source for copying conditions."
 msgstr "Ez szabad szoftver; a másolási feltételekért lásd a forrást."
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:239
 msgid "Error"
 msgstr "Hiba"
-
 #: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/main.py:62
 msgid "unknown option"
 msgstr "ismeretlen opció"
