@@ -15,193 +15,197 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #
-# File: usr/share/comm-release/main.py, line: 62
-msgid "unknown option"
-msgstr "unknown option"
-
-#
-# File: usr/share/comm-release/display.py, line: 37
+# File: usr/share/comm-release/display.py, line: 71
+# File: usr/share/comm-release/display.py, line: 112
 msgid "Distribution Information"
 msgstr "Distribution Information"
 
 #
-# File: usr/share/comm-release/display.py, line: 58
+# File: usr/share/comm-release/display.py, line: 97
 msgid "Distributor ID"
 msgstr "Distributor ID"
 
 #
-# File: usr/share/comm-release/display.py, line: 60
+# File: usr/share/comm-release/display.py, line: 99
 msgid "Description"
 msgstr "Description"
 
 #
-# File: usr/share/comm-release/display.py, line: 62
+# File: usr/share/comm-release/display.py, line: 101
 msgid "Release"
 msgstr "Release"
 
 #
-# File: usr/share/comm-release/display.py, line: 64
+# File: usr/share/comm-release/display.py, line: 103
 msgid "Codename"
 msgstr "Codename"
 
 #
-# File: usr/share/comm-release/display.py, line: 88
+# File: usr/share/comm-release/display.py, line: 123
 msgid "Environment"
 msgstr "Environment"
 
 #
-# File: usr/share/comm-release/display.py, line: 89
+# File: usr/share/comm-release/display.py, line: 124
 msgid "Architecture"
 msgstr "Architecture"
 
 #
-# File: usr/share/comm-release/display.py, line: 90
+# File: usr/share/comm-release/display.py, line: 125
 msgid "Kernel"
 msgstr "Kernel"
 
 #
-# File: usr/share/comm-release/display.py, line: 91
+# File: usr/share/comm-release/display.py, line: 126
 msgid "Processor"
 msgstr "Processor"
 
 #
-# File: usr/share/comm-release/display.py, line: 92
+# File: usr/share/comm-release/display.py, line: 127
 msgid "Memory"
 msgstr "Memory"
 
 #
-# File: usr/share/comm-release/display.py, line: 93
+# File: usr/share/comm-release/display.py, line: 128
 msgid "Uptime"
 msgstr "Uptime"
 
 #
-# File: usr/share/comm-release/display.py, line: 97
+# File: usr/share/comm-release/display.py, line: 131
 msgid "System Info"
 msgstr "System Info"
 
 #
-# File: usr/share/comm-release/display.py, line: 115
+# File: usr/share/comm-release/display.py, line: 146
 msgid "Install Date"
 msgstr "Install Date"
 
 #
-# File: usr/share/comm-release/display.py, line: 116
+# File: usr/share/comm-release/display.py, line: 147
 msgid "Last Update"
 msgstr "Last Update"
 
 #
-# File: usr/share/comm-release/display.py, line: 117
+# File: usr/share/comm-release/display.py, line: 148
 msgid "Repositories"
 msgstr "Repositories"
 
 #
-# File: usr/share/comm-release/display.py, line: 118
+# File: usr/share/comm-release/display.py, line: 149
 msgid "Pending Updates"
 msgstr "Pending Updates"
 
 #
-# File: usr/share/comm-release/display.py, line: 122
+# File: usr/share/comm-release/display.py, line: 154
 msgid "System Status"
 msgstr "System Status"
 
 #
-# File: usr/share/comm-release/display.py, line: 143
+# File: usr/share/comm-release/display.py, line: 190
+# File: usr/share/comm-release/display.py, line: 207
 msgid "Website:"
 msgstr "Website:"
 
 #
-# File: usr/share/comm-release/display.py, line: 144
+# File: usr/share/comm-release/display.py, line: 194
+# File: usr/share/comm-release/display.py, line: 208
 msgid "Support:"
 msgstr "Support:"
 
 #
-# File: usr/share/comm-release/display.py, line: 145
+# File: usr/share/comm-release/display.py, line: 198
+# File: usr/share/comm-release/display.py, line: 209
 msgid "Donate: "
 msgstr "Donate: "
 
 #
-# File: usr/share/comm-release/display.py, line: 166
+# File: usr/share/comm-release/display.py, line: 229
 msgid "Distribution Information Tool"
 msgstr "Distribution Information Tool"
 
 #
-# File: usr/share/comm-release/display.py, line: 173
+# File: usr/share/comm-release/display.py, line: 232
 msgid "Usage"
 msgstr "Usage"
 
 #
-# File: usr/share/comm-release/display.py, line: 181
+# File: usr/share/comm-release/display.py, line: 238
 msgid ""
 "With no OPTION specified defaults to showing all information (same as -a)."
 msgstr ""
 "With no OPTION specified defaults to showing all information (same as -a)."
 
 #
-# File: usr/share/comm-release/display.py, line: 187
-msgid "Options:"
-msgstr "Options:"
-
-#
-# File: usr/share/comm-release/display.py, line: 191
+# File: usr/share/comm-release/display.py, line: 249
 msgid "Display the distributor ID"
 msgstr "Display the distributor ID"
 
 #
-# File: usr/share/comm-release/display.py, line: 192
+# File: usr/share/comm-release/display.py, line: 250
 msgid "Display the distribution description"
 msgstr "Display the distribution description"
 
 #
-# File: usr/share/comm-release/display.py, line: 193
+# File: usr/share/comm-release/display.py, line: 251
 msgid "Display the release number"
 msgstr "Display the release number"
 
 #
-# File: usr/share/comm-release/display.py, line: 194
+# File: usr/share/comm-release/display.py, line: 252
 msgid "Display the codename"
 msgstr "Display the codename"
 
 #
-# File: usr/share/comm-release/display.py, line: 195
+# File: usr/share/comm-release/display.py, line: 253
 msgid "Display all information"
 msgstr "Display all information"
 
 #
-# File: usr/share/comm-release/display.py, line: 196
+# File: usr/share/comm-release/display.py, line: 254
 msgid "Display extended system information"
 msgstr "Display extended system information"
 
 #
-# File: usr/share/comm-release/display.py, line: 197
+# File: usr/share/comm-release/display.py, line: 255
 msgid "Use short output format (plain text)"
 msgstr "Use short output format (plain text)"
 
 #
-# File: usr/share/comm-release/display.py, line: 198
+# File: usr/share/comm-release/display.py, line: 256
 msgid "Display with banner"
 msgstr "Display with banner"
 
 #
-# File: usr/share/comm-release/display.py, line: 199
+# File: usr/share/comm-release/display.py, line: 257
 msgid "Display program version"
 msgstr "Display program version"
 
 #
-# File: usr/share/comm-release/display.py, line: 200
+# File: usr/share/comm-release/display.py, line: 258
 msgid "Display this help message"
 msgstr "Display this help message"
 
 #
-# File: usr/share/comm-release/display.py, line: 224
+# File: usr/share/comm-release/display.py, line: 270
+msgid "Options:"
+msgstr "Options:"
+
+#
+# File: usr/share/comm-release/display.py, line: 283
 msgid "Copyright (C) 2025 BigCommunity"
 msgstr "Copyright (C) 2025 BigCommunity"
 
 #
-# File: usr/share/comm-release/display.py, line: 227
+# File: usr/share/comm-release/display.py, line: 285
 msgid "This is free software; see the source for copying conditions."
 msgstr "This is free software; see the source for copying conditions."
 
 #
-# File: usr/share/comm-release/display.py, line: 239
+# File: usr/share/comm-release/display.py, line: 301
 msgid "Error"
 msgstr "Error"
+
+#
+# File: usr/share/comm-release/main.py, line: 62
+msgid "unknown option"
+msgstr "unknown option"
