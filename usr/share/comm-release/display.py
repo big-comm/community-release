@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from rich import box
 from rich.align import Align
 from rich.columns import Columns
-from rich.console import Console
+from rich.console import Console, Group
+from rich.padding import Padding
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
@@ -14,31 +16,68 @@ from info import SystemInfo
 
 console = Console()
 
-# ─── Color palette (BigCommunity theme) ───────────────────────────────────────
-BLUE_DARK  = "bold #1f6feb"   # Deep blue   — labels / borders
-LIGHT_BLUE = "bold #58a6ff"   # Light blue  — secondary values
-CYAN       = "bold #39d5f5"   # Cyan        — IDs and key accents
-WHITE      = "bold white"     # White       — descriptions / values
-GREEN      = "bold #56d364"   # Green       — environment / uptime / ok
-YELLOW     = "bold #e3b341"   # Yellow      — architecture / notices
-RED        = "bold #f85149"   # Red         — errors / pending updates
-PURPLE     = "bold #bc8cff"   # Purple      — section headers
-ORANGE     = "bold #d18616"   # Orange      — processor
-GRAY       = "#8b949e"        # Gray        — dates / dim text
+# BigCommunity web palette: clean whites, violet, magenta and restrained blue.
+WHITE       = "bold #f8fafc"
+MUTED       = "#a8adbd"
+DIM         = "#6f7688"
+PINK        = "bold #ec4899"
+PURPLE      = "bold #b45cff"
+VIOLET      = "bold #8b5cf6"
+BLUE        = "bold #3b82f6"
+BORDER      = "#4c3f91"
+OK          = "bold #22c55e"
+ERROR       = "bold #ef4444"
+
+
+def _content_width(limit: int = 86) -> int:
+    return max(44, min(console.width - 4, limit))
+
+
+def _column_width() -> int:
+    return max(44, min((console.width - 10) // 2, 62))
+
+
+def _panel(renderable, *, title: str | None = None, width: int | None = None) -> Panel:
+    return Panel(
+        renderable,
+        title=f"[{PINK}]{title}[/]" if title else None,
+        border_style=BORDER,
+        box=box.ROUNDED,
+        padding=(1, 2),
+        width=width,
+    )
+
+
+def _key_value_table(rows: list[tuple[str, str, str]], *, min_rows: int = 0) -> Table:
+    table = Table.grid(padding=(0, 1))
+    table.add_column("label", style=MUTED, justify="right", no_wrap=True)
+    table.add_column("sep", style=DIM, no_wrap=True)
+    table.add_column("value", no_wrap=False)
+
+    padded_rows = rows + [("", "", DIM)] * max(0, min_rows - len(rows))
+    for label, value, style in padded_rows:
+        table.add_row(label, ":" if label or value else "", Text(value, style=style))
+
+    return table
 
 
 # ─── Banner ────────────────────────────────────────────────────────────────────
 
 def display_banner() -> None:
     title = Text()
-    title.append("Big", style=LIGHT_BLUE)
-    title.append("Community", style=CYAN)
+    title.append("Big", style=WHITE)
+    title.append("Community", style=PINK)
 
-    subtitle = Text(_("Distribution Information"), style=GRAY)
+    subtitle = Text(_("Distribution Information"), style=MUTED)
+    accent = Text("Open Source  |  Livre  |  Comunitário", style=VIOLET)
 
-    content = Align.center(Text.assemble(title, "\n", subtitle))
+    content = Group(
+        Align.center(title),
+        Align.center(subtitle),
+        Padding(Align.center(accent), (1, 0, 0, 0)),
+    )
     console.print(
-        Panel(content, border_style=BLUE_DARK, expand=False, padding=(1, 8))
+        Align.center(_panel(content, width=_content_width(76)))
     )
     console.print()
 
@@ -55,79 +94,85 @@ def display_basic_info(
 ) -> None:
     rows = []
     if show_id:
-        rows.append((_("Distributor ID"), info.distrib.id,          CYAN))
+        rows.append((_("Distributor ID"), info.distrib.id,          PINK))
     if show_desc:
         rows.append((_("Description"),    info.distrib.description,  WHITE))
     if show_release:
-        rows.append((_("Release"),        info.distrib.release,       LIGHT_BLUE))
+        rows.append((_("Release"),        info.distrib.release,       VIOLET))
     if show_codename:
-        rows.append((_("Codename"),       info.distrib.codename,      CYAN))
+        rows.append((_("Codename"),       info.distrib.codename,      PURPLE))
 
     if not rows:
         return
 
-    table = Table(show_header=False, box=None, padding=(0, 1))
-    table.add_column("label", style=BLUE_DARK, justify="right", no_wrap=True)
-    table.add_column("sep",   style=GRAY,      no_wrap=True)
-    table.add_column("value",                  no_wrap=False)
-
-    for label, value, style in rows:
-        table.add_row(label, ":", Text(value, style=style))
-
-    console.print(table)
+    console.print(
+        Align.center(
+            _panel(
+                _key_value_table(rows),
+                title=_("Distribution Information"),
+                width=_content_width(),
+            )
+        )
+    )
 
 
 # ─── Extended system information ───────────────────────────────────────────────
 
-def _system_panel(info: SystemInfo) -> Panel:
-    table = Table(show_header=False, box=None, padding=(0, 1))
-    table.add_column("label", style=BLUE_DARK, justify="right", no_wrap=True)
-    table.add_column("sep",   style=GRAY,      no_wrap=True)
-    table.add_column("value",                  no_wrap=False)
+def _system_panel(info: SystemInfo, *, width: int | None = None) -> Panel:
+    rows = [
+        (_("Environment"),  info.environment,  OK),
+        (_("Architecture"), info.architecture, VIOLET),
+        (_("Kernel"),       info.kernel,       BLUE),
+        (_("Processor"),    info.cpu,          WHITE),
+        (_("Memory"),       info.memory,       PURPLE),
+        (_("Uptime"),       info.uptime,       OK),
+    ]
 
-    table.add_row(_("Environment"),  ":", Text(info.environment,  style=GREEN))
-    table.add_row(_("Architecture"), ":", Text(info.architecture, style=YELLOW))
-    table.add_row(_("Kernel"),       ":", Text(info.kernel,       style=LIGHT_BLUE))
-    table.add_row(_("Processor"),    ":", Text(info.cpu,          style=ORANGE))
-    table.add_row(_("Memory"),       ":", Text(info.memory,       style=CYAN))
-    table.add_row(_("Uptime"),       ":", Text(info.uptime,       style=GREEN))
-
-    return Panel(
-        table,
-        title=f"[{PURPLE}]{_('System Info')}[/]",
-        border_style=BLUE_DARK,
-        expand=True,
-    )
+    return _panel(_key_value_table(rows), title=_("System Info"), width=width)
 
 
-def _status_panel(info: SystemInfo) -> Panel:
-    table = Table(show_header=False, box=None, padding=(0, 1))
-    table.add_column("label", style=BLUE_DARK, justify="right", no_wrap=True)
-    table.add_column("sep",   style=GRAY,      no_wrap=True)
-    table.add_column("value",                  no_wrap=False)
-
+def _status_panel(
+    info: SystemInfo,
+    *,
+    width: int | None = None,
+    min_rows: int = 0,
+) -> Panel:
     pending_style = (
-        RED
+        ERROR
         if info.pending_updates not in ("None", "Unknown", "0 packages")
-        else GREEN
+        else OK
     )
+    rows = [
+        (_("Install Date"),    info.install_date,    DIM),
+        (_("Last Update"),     info.last_update,     DIM),
+        (_("Repositories"),    info.repositories,    BLUE),
+        (_("Pending Updates"), info.pending_updates, pending_style),
+    ]
 
-    table.add_row(_("Install Date"),    ":", Text(info.install_date,    style=GRAY))
-    table.add_row(_("Last Update"),     ":", Text(info.last_update,     style=GRAY))
-    table.add_row(_("Repositories"),    ":", Text(info.repositories,    style=LIGHT_BLUE))
-    table.add_row(_("Pending Updates"), ":", Text(info.pending_updates, style=pending_style))
-
-    return Panel(
-        table,
-        title=f"[{PURPLE}]{_('System Status')}[/]",
-        border_style=BLUE_DARK,
-        expand=True,
+    return _panel(
+        _key_value_table(rows, min_rows=min_rows),
+        title=_("System Status"),
+        width=width,
     )
 
 
 def display_extended(info: SystemInfo) -> None:
     console.print()
-    console.print(Columns([_system_panel(info), _status_panel(info)]))
+
+    if console.width >= 104:
+        width = _column_width()
+        panels = [
+            _system_panel(info, width=width),
+            _status_panel(info, width=width, min_rows=6),
+        ]
+        console.print(
+            Align.center(Columns(panels, padding=(2, 2), equal=True, expand=False))
+        )
+        return
+
+    width = _content_width()
+    console.print(Align.center(_system_panel(info, width=width)))
+    console.print(Align.center(_status_panel(info, width=width)))
 
 
 # ─── Footer ────────────────────────────────────────────────────────────────────
@@ -135,16 +180,35 @@ def display_extended(info: SystemInfo) -> None:
 def display_footer() -> None:
     console.print()
 
-    table = Table(show_header=False, box=None, padding=(0, 1))
-    table.add_column("bullet", style=PURPLE,    no_wrap=True)
-    table.add_column("label",  style=GRAY,      no_wrap=True)
-    table.add_column("url",                     no_wrap=True)
+    if console.width >= 100:
+        table = Table.grid(padding=(0, 3))
+        table.add_column(no_wrap=True)
+        table.add_column(no_wrap=True)
+        table.add_column(no_wrap=True)
+        table.add_row(
+            Text.assemble(
+                (_("Website:"), MUTED),
+                (" https://communitybig.org", BLUE),
+            ),
+            Text.assemble(
+                (_("Support:"), MUTED),
+                (" https://t.me/BigLinuxCommunity", VIOLET),
+            ),
+            Text.assemble(
+                (_("Donate: "), MUTED),
+                (" https://t.me/DoacaoCommunityBot", PINK),
+            ),
+        )
+        console.print(Align.center(table))
+    else:
+        table = Table.grid(padding=(0, 1))
+        table.add_column("label", style=MUTED, justify="right", no_wrap=True)
+        table.add_column("url", no_wrap=True)
+        table.add_row(_("Website:"), Text("https://communitybig.org", style=BLUE))
+        table.add_row(_("Support:"), Text("https://t.me/BigLinuxCommunity", style=VIOLET))
+        table.add_row(_("Donate: "), Text("https://t.me/DoacaoCommunityBot", style=PINK))
+        console.print(Align.center(table))
 
-    table.add_row("◆", _("Website:"), Text("https://communitybig.org",          style=CYAN))
-    table.add_row("◆", _("Support:"), Text("https://t.me/BigLinuxCommunity",     style=LIGHT_BLUE))
-    table.add_row("◆", _("Donate: "), Text("https://t.me/DoacaoCommunityBot",    style=ORANGE))
-
-    console.print(table)
     console.print()
 
 
@@ -159,32 +223,26 @@ def display_short(parts: list[str]) -> None:
 def display_help(version: str) -> None:
     display_banner()
 
-    console.print(
-        Text.assemble(
-            (f"comm-release v{version}", BLUE_DARK),
-            ("  —  ", GRAY),
-            (_("Distribution Information Tool"), WHITE),
-        )
+    title = Text.assemble(
+        (f"comm-release v{version}", PURPLE),
+        ("  -  ", DIM),
+        (_("Distribution Information Tool"), WHITE),
     )
-    console.print()
+    usage = Text.assemble(
+        (_("Usage"), VIOLET),
+        (":  ", DIM),
+        ("comm-release", PINK),
+        ("  [OPTION]...", WHITE),
+    )
+    description = Text(
+        _("With no OPTION specified defaults to showing all information (same as -a)."),
+        style=MUTED,
+    )
 
-    console.print(
-        Text.assemble(
-            (_("Usage"), LIGHT_BLUE),
-            (":  ", GRAY),
-            ("comm-release", CYAN),
-            ("  [OPTION]...", WHITE),
-        )
-    )
-    console.print(
-        Text(
-            _("With no OPTION specified defaults to showing all information (same as -a)."),
-            style=YELLOW,
-        )
-    )
+    console.print(Align.center(title))
     console.print()
-
-    console.print(Text(_("Options:"), style=LIGHT_BLUE))
+    console.print(Align.center(usage))
+    console.print(Align.center(description))
     console.print()
 
     options = [
@@ -200,34 +258,38 @@ def display_help(version: str) -> None:
         ("-h,  --help",            _("Display this help message")),
     ]
 
-    table = Table(show_header=False, box=None, padding=(0, 2))
-    table.add_column("flag", style=CYAN,  no_wrap=True)
+    table = Table.grid(padding=(0, 2))
+    table.add_column("flag", style=VIOLET, no_wrap=True)
     table.add_column("desc", style=WHITE, no_wrap=False)
 
     for flag, desc in options:
         table.add_row(flag, desc)
 
-    console.print(table)
+    console.print(
+        Align.center(
+            _panel(table, title=_("Options:"), width=_content_width())
+        )
+    )
     console.print()
 
 
 # ─── Version screen ────────────────────────────────────────────────────────────
 
 def display_version(version: str) -> None:
-    console.print(
-        Text.assemble(
-            ("BigCommunity comm-release  v", BLUE_DARK),
-            (version, CYAN),
-        )
+    title = Text.assemble(
+        ("BigCommunity comm-release  v", WHITE),
+        (version, PINK),
     )
+    copyright_text = Text(_("Copyright (C) 2025 BigCommunity"), style=MUTED)
+    license_text = Text(
+        _("This is free software; see the source for copying conditions."),
+        style=DIM,
+    )
+
+    console.print(Align.center(title))
     console.print()
-    console.print(Text(_("Copyright (C) 2025 BigCommunity"), style=WHITE))
-    console.print(
-        Text(
-            _("This is free software; see the source for copying conditions."),
-            style=GRAY,
-        )
-    )
+    console.print(Align.center(copyright_text))
+    console.print(Align.center(license_text))
     console.print()
 
 
@@ -236,8 +298,8 @@ def display_version(version: str) -> None:
 def display_error(message: str) -> None:
     console.print(
         Text.assemble(
-            (_("Error"), RED),
-            (":  ", GRAY),
+            (_("Error"), ERROR),
+            (":  ", DIM),
             (message, WHITE),
         )
     )
