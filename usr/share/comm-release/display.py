@@ -18,66 +18,161 @@ console = Console()
 
 # BigCommunity web palette: clean whites, violet, magenta and restrained blue.
 WHITE       = "bold #f8fafc"
-MUTED       = "#a8adbd"
-DIM         = "#6f7688"
-PINK        = "bold #ec4899"
-PURPLE      = "bold #b45cff"
-VIOLET      = "bold #8b5cf6"
-BLUE        = "bold #3b82f6"
-BORDER      = "#4c3f91"
-OK          = "bold #22c55e"
-ERROR       = "bold #ef4444"
+MUTED       = "#9aa3b8"
+DIM         = "#68708a"
+PINK        = "bold #ff4fa3"
+PURPLE      = "bold #a855f7"
+VIOLET      = "bold #7c5cff"
+BLUE        = "bold #2294ff"
+BORDER      = "#3f4b8f"
+BORDER_BLUE = "#1777d4"
+BORDER_PINK = "#bf3b8e"
+OK          = "bold #2fe66b"
+ERROR       = "bold #ff5f6d"
+WATERMARK   = "#111939"
 
 
-def _content_width(limit: int = 86) -> int:
-    return max(44, min(console.width - 4, limit))
+def _content_width(limit: int = 104) -> int:
+    available = max(32, console.width - 4)
+    return min(available, limit)
 
 
 def _column_width() -> int:
-    return max(44, min((console.width - 10) // 2, 62))
+    return max(40, min((_content_width(118) - 4) // 2, 58))
 
 
-def _panel(renderable, *, title: str | None = None, width: int | None = None) -> Panel:
+def _panel(
+    renderable,
+    *,
+    title: str | None = None,
+    width: int | None = None,
+    border_style: str = BORDER,
+    title_style: str = PINK,
+    padding: tuple[int, int] = (1, 2),
+) -> Panel:
     return Panel(
         renderable,
-        title=f"[{PINK}]{title}[/]" if title else None,
-        border_style=BORDER,
+        title=f"[{title_style}]{title}[/]" if title else None,
+        border_style=border_style,
         box=box.ROUNDED,
-        padding=(1, 2),
+        padding=padding,
         width=width,
     )
 
 
-def _key_value_table(rows: list[tuple[str, str, str]], *, min_rows: int = 0) -> Table:
+def _section(
+    renderable,
+    *,
+    label: str,
+    icon: str,
+    width: int | None = None,
+    border_style: str = BORDER,
+    title_style: str = PINK,
+) -> Panel:
+    header = Text.assemble(
+        (icon, title_style),
+        ("  " + label.upper(), title_style),
+    )
+    content = Group(header, Padding(renderable, (1, 0, 0, 0)))
+
+    return _panel(
+        content,
+        width=width,
+        border_style=border_style,
+        title_style=title_style,
+    )
+
+
+def _key_value_table(rows: list[tuple[str, str, str]]) -> Table:
     table = Table.grid(padding=(0, 1))
-    table.add_column("label", style=MUTED, justify="right", no_wrap=True)
+    table.add_column("label", style=MUTED, no_wrap=True)
     table.add_column("sep", style=DIM, no_wrap=True)
     table.add_column("value", no_wrap=False)
 
-    padded_rows = rows + [("", "", DIM)] * max(0, min_rows - len(rows))
-    for label, value, style in padded_rows:
-        table.add_row(label, ":" if label or value else "", Text(value, style=style))
+    for label, value, style in rows:
+        table.add_row(label, ":", Text(value, style=style))
 
     return table
+
+
+def _icon_table(rows: list[tuple[str, str, str, str]], *, min_rows: int = 0) -> Table:
+    table = Table.grid(padding=(0, 1))
+    table.add_column("icon", style=DIM, justify="center", no_wrap=True)
+    table.add_column("label", style=MUTED, no_wrap=True)
+    table.add_column("sep", style=DIM, no_wrap=True)
+    table.add_column("value", no_wrap=False)
+
+    padded_rows = rows + [("", "", "", DIM)] * max(0, min_rows - len(rows))
+    for icon, label, value, style in padded_rows:
+        table.add_row(
+            Text(icon, style=style),
+            label,
+            ":" if label or value else "",
+            Text(value, style=style),
+        )
+
+    return table
+
+
+def _dot_matrix(style: str) -> Text:
+    return Text("•  •  •  •  •\n  •  •  •  •\n•  •  •  •  •", style=style)
+
+
+def _brand_mark(style: str = WATERMARK) -> Text:
+    return Text("  ◉   ◉\n    ◡\n╰─────╯", style=style)
 
 
 # ─── Banner ────────────────────────────────────────────────────────────────────
 
 def display_banner() -> None:
-    title = Text()
-    title.append("Big", style=WHITE)
-    title.append("Community", style=PINK)
+    logo = Text("◉◡◉", style=VIOLET)
+    title = Text.assemble(
+        ("Big", WHITE),
+        ("Com", PINK),
+        ("mun", PURPLE),
+        ("ity", BLUE),
+    )
+    brand = Table.grid(padding=(0, 1))
+    brand.add_column(justify="right", no_wrap=True)
+    brand.add_column(justify="left", no_wrap=True)
+    brand.add_row(logo, title)
 
     subtitle = Text(_("Distribution Information"), style=MUTED)
-    accent = Text("Open Source  |  Livre  |  Comunitário", style=VIOLET)
+    accent = Text.assemble(
+        ("Open Source", BLUE),
+        ("     |     ", DIM),
+        ("Livre", PINK),
+        ("     |     ", DIM),
+        ("Comunitário", VIOLET),
+    )
 
-    content = Group(
-        Align.center(title),
+    center = Group(
+        Align.center(brand),
         Align.center(subtitle),
         Padding(Align.center(accent), (1, 0, 0, 0)),
     )
+    if console.width >= 100:
+        content = Table.grid(expand=True)
+        content.add_column(ratio=1, justify="left")
+        content.add_column(ratio=4, justify="center")
+        content.add_column(ratio=1, justify="right")
+        content.add_row(
+            Padding(_dot_matrix("#0d4ea6"), (1, 0, 0, 0)),
+            center,
+            Padding(_dot_matrix("#72265f"), (1, 0, 0, 0)),
+        )
+    else:
+        content = center
+
     console.print(
-        Align.center(_panel(content, width=_content_width(76)))
+        Align.center(
+            _panel(
+                content,
+                width=_content_width(96),
+                border_style=BORDER_PINK,
+                padding=(0, 2),
+            )
+        )
     )
     console.print()
 
@@ -105,12 +200,23 @@ def display_basic_info(
     if not rows:
         return
 
+    body = _key_value_table(rows)
+    if console.width >= 84:
+        layout = Table.grid(expand=True)
+        layout.add_column(ratio=3)
+        layout.add_column(width=18, justify="right")
+        layout.add_row(body, Align.center(_brand_mark()))
+        body = layout
+
     console.print(
         Align.center(
-            _panel(
-                _key_value_table(rows),
-                title=_("Distribution Information"),
-                width=_content_width(),
+            _section(
+                body,
+                label=_("Distribution Information"),
+                icon="◆",
+                width=_content_width(96),
+                border_style=VIOLET,
+                title_style=PINK,
             )
         )
     )
@@ -120,15 +226,22 @@ def display_basic_info(
 
 def _system_panel(info: SystemInfo, *, width: int | None = None) -> Panel:
     rows = [
-        (_("Environment"),  info.environment,  OK),
-        (_("Architecture"), info.architecture, VIOLET),
-        (_("Kernel"),       info.kernel,       BLUE),
-        (_("Processor"),    info.cpu,          WHITE),
-        (_("Memory"),       info.memory,       PURPLE),
-        (_("Uptime"),       info.uptime,       OK),
+        ("▪", _("Environment"),  info.environment,  OK),
+        ("◇", _("Architecture"), info.architecture, BLUE),
+        ("▦", _("Kernel"),       info.kernel,       BLUE),
+        ("✦", _("Processor"),    info.cpu,          WHITE),
+        ("▰", _("Memory"),       info.memory,       PINK),
+        ("◷", _("Uptime"),       info.uptime,       OK),
     ]
 
-    return _panel(_key_value_table(rows), title=_("System Info"), width=width)
+    return _section(
+        _icon_table(rows),
+        label=_("System Info"),
+        icon="▣",
+        width=width,
+        border_style=BORDER_BLUE,
+        title_style=BLUE,
+    )
 
 
 def _status_panel(
@@ -143,27 +256,30 @@ def _status_panel(
         else OK
     )
     rows = [
-        (_("Install Date"),    info.install_date,    DIM),
-        (_("Last Update"),     info.last_update,     DIM),
-        (_("Repositories"),    info.repositories,    BLUE),
-        (_("Pending Updates"), info.pending_updates, pending_style),
+        ("□", _("Install Date"),    info.install_date,    BLUE),
+        ("↻", _("Last Update"),     info.last_update,     VIOLET),
+        ("▦", _("Repositories"),    info.repositories,    BLUE),
+        ("↑", _("Pending Updates"), info.pending_updates, pending_style),
     ]
 
-    return _panel(
-        _key_value_table(rows, min_rows=min_rows),
-        title=_("System Status"),
+    return _section(
+        _icon_table(rows, min_rows=min_rows),
+        label=_("System Status"),
+        icon="⌁",
         width=width,
+        border_style=PURPLE,
+        title_style=PURPLE,
     )
 
 
 def display_extended(info: SystemInfo) -> None:
     console.print()
 
-    if console.width >= 104:
+    if console.width >= 108:
         width = _column_width()
         panels = [
             _system_panel(info, width=width),
-            _status_panel(info, width=width, min_rows=6),
+            _status_panel(info, width=width, min_rows=8),
         ]
         console.print(
             Align.center(Columns(panels, padding=(2, 2), equal=True, expand=False))
@@ -180,26 +296,25 @@ def display_extended(info: SystemInfo) -> None:
 def display_footer() -> None:
     console.print()
 
-    if console.width >= 100:
-        table = Table.grid(padding=(0, 3))
-        table.add_column(no_wrap=True)
-        table.add_column(no_wrap=True)
-        table.add_column(no_wrap=True)
-        table.add_row(
+    if console.width >= 118:
+        donate_label = _("Donate: ").strip()
+        content = Align.center(
             Text.assemble(
+                ("◎ ", BLUE),
                 (_("Website:"), MUTED),
                 (" https://communitybig.org", BLUE),
-            ),
-            Text.assemble(
+                ("  │  ", DIM),
+                ("♙ ", VIOLET),
                 (_("Support:"), MUTED),
                 (" https://t.me/BigLinuxCommunity", VIOLET),
-            ),
-            Text.assemble(
-                (_("Donate: "), MUTED),
+                ("  │  ", DIM),
+                ("♡ ", PINK),
+                (donate_label, MUTED),
                 (" https://t.me/DoacaoCommunityBot", PINK),
-            ),
+            )
         )
-        console.print(Align.center(table))
+        footer_width = _content_width(136)
+        footer_padding = (0, 1)
     else:
         table = Table.grid(padding=(0, 1))
         table.add_column("label", style=MUTED, justify="right", no_wrap=True)
@@ -207,8 +322,20 @@ def display_footer() -> None:
         table.add_row(_("Website:"), Text("https://communitybig.org", style=BLUE))
         table.add_row(_("Support:"), Text("https://t.me/BigLinuxCommunity", style=VIOLET))
         table.add_row(_("Donate: "), Text("https://t.me/DoacaoCommunityBot", style=PINK))
-        console.print(Align.center(table))
+        content = Align.center(table)
+        footer_width = _content_width(96)
+        footer_padding = (0, 2)
 
+    console.print(
+        Align.center(
+            _panel(
+                content,
+                width=footer_width,
+                border_style=BORDER,
+                padding=footer_padding,
+            )
+        )
+    )
     console.print()
 
 
