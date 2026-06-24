@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=BigCommunity System Information
+Name[pt_BR]=BigCommunity - Sistema e Distribuição
+Comment=View BigCommunity release and system information
+Comment[pt_BR]=Veja informações da distribuição e do sistema BigCommunity
+Exec=comm-release-gtk
+Icon=org.bigcommunity.CommRelease
+Terminal=false
+Categories=System;Monitor;
+StartupNotify=true
