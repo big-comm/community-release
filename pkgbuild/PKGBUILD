@@ -3,7 +3,7 @@
 pkgname=community-release
 pkgdesc="BigCommunity release definition"
 # Uncomment and edit the following lines as needed
-depends=('lsb-release' 'python' 'python-rich')
+depends=('lsb-release' 'python' 'python-rich' 'python-gobject' 'gtk4' 'libadwaita')
 #makedepends=('')
 #optdepends=('')
 conflicts=('manjaro-release')
@@ -60,8 +60,12 @@ package() {
         fi
     done
 
-    # Ensure the main executable is executable
-    chmod 755 "${pkgdir}/usr/bin/comm-release"
+    # Ensure executables are executable
+    for exe in comm-release comm-release-gtk; do
+        if [ -f "${pkgdir}/usr/bin/${exe}" ]; then
+            chmod 755 "${pkgdir}/usr/bin/${exe}"
+        fi
+    done
 
     # Install license file if present
     if [ -f "LICENSE" ]; then
