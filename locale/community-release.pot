@@ -19,8 +19,8 @@ msgstr  "Project-Id-Version: community-release\n"
 #
 # File: usr/share/comm-release/display.py, line: 140
 # File: usr/share/comm-release/display.py, line: 215
-# File: usr/share/comm-release/gui.py, line: 800
-# File: usr/share/comm-release/gui.py, line: 812
+# File: usr/share/comm-release/gui.py, line: 824
+# File: usr/share/comm-release/gui.py, line: 836
 msgid   "Distribution Information"
 msgstr  ""
 
@@ -28,7 +28,7 @@ msgstr  ""
 # #-#-#-#-#  community-release.pot (community-release)  #-#-#-#-#
 #
 # File: usr/share/comm-release/display.py, line: 192
-# File: usr/share/comm-release/gui.py, line: 769
+# File: usr/share/comm-release/gui.py, line: 793
 msgid   "Distributor ID"
 msgstr  ""
 
@@ -36,7 +36,7 @@ msgstr  ""
 # #-#-#-#-#  community-release.pot (community-release)  #-#-#-#-#
 #
 # File: usr/share/comm-release/display.py, line: 194
-# File: usr/share/comm-release/gui.py, line: 770
+# File: usr/share/comm-release/gui.py, line: 794
 msgid   "Description"
 msgstr  ""
 
@@ -44,7 +44,7 @@ msgstr  ""
 # #-#-#-#-#  community-release.pot (community-release)  #-#-#-#-#
 #
 # File: usr/share/comm-release/display.py, line: 196
-# File: usr/share/comm-release/gui.py, line: 771
+# File: usr/share/comm-release/gui.py, line: 795
 msgid   "Release"
 msgstr  ""
 
@@ -52,7 +52,7 @@ msgstr  ""
 # #-#-#-#-#  community-release.pot (community-release)  #-#-#-#-#
 #
 # File: usr/share/comm-release/display.py, line: 198
-# File: usr/share/comm-release/gui.py, line: 772
+# File: usr/share/comm-release/gui.py, line: 796
 msgid   "Codename"
 msgstr  ""
 
@@ -60,7 +60,7 @@ msgstr  ""
 # #-#-#-#-#  community-release.pot (community-release)  #-#-#-#-#
 #
 # File: usr/share/comm-release/display.py, line: 229
-# File: usr/share/comm-release/gui.py, line: 565
+# File: usr/share/comm-release/gui.py, line: 589
 msgid   "Environment"
 msgstr  ""
 
@@ -68,7 +68,7 @@ msgstr  ""
 # #-#-#-#-#  community-release.pot (community-release)  #-#-#-#-#
 #
 # File: usr/share/comm-release/display.py, line: 230
-# File: usr/share/comm-release/gui.py, line: 563
+# File: usr/share/comm-release/gui.py, line: 587
 msgid   "Architecture"
 msgstr  ""
 
@@ -76,7 +76,7 @@ msgstr  ""
 # #-#-#-#-#  community-release.pot (community-release)  #-#-#-#-#
 #
 # File: usr/share/comm-release/display.py, line: 231
-# File: usr/share/comm-release/gui.py, line: 564
+# File: usr/share/comm-release/gui.py, line: 588
 msgid   "Kernel"
 msgstr  ""
 
@@ -84,7 +84,7 @@ msgstr  ""
 # #-#-#-#-#  community-release.pot (community-release)  #-#-#-#-#
 #
 # File: usr/share/comm-release/display.py, line: 232
-# File: usr/share/comm-release/gui.py, line: 562
+# File: usr/share/comm-release/gui.py, line: 586
 msgid   "Processor"
 msgstr  ""
 
