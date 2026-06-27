@@ -11,11 +11,12 @@ from datetime import datetime
 from pathlib import Path
 
 import gi
+import cairo
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Adw, Gdk, Gio, Gtk, Pango
+from gi.repository import Adw, Gdk, Gio, GLib, Gtk, Pango, PangoCairo
 
 from info import SystemInfo, collect_all
 from utils.i18n import _
@@ -282,18 +283,41 @@ def _brand_icon(size: int, opacity: float = 1.0) -> Gtk.Image:
     return image
 
 
+def _gradient_text(text: str, width: int, height: int, size: int) -> Gtk.DrawingArea:
+    area = Gtk.DrawingArea()
+    area.set_content_width(width)
+    area.set_content_height(height)
+    area.set_valign(Gtk.Align.CENTER)
+
+    def draw(_area, cr, _width: int, _height: int) -> None:
+        layout = PangoCairo.create_layout(cr)
+        layout.set_text(text, -1)
+
+        font = Pango.FontDescription("Sans")
+        font.set_weight(Pango.Weight.ULTRABOLD)
+        font.set_absolute_size(size * Pango.SCALE)
+        layout.set_font_description(font)
+
+        text_width, text_height = layout.get_pixel_size()
+        cr.move_to(0, max(0, (height - text_height) / 2))
+        PangoCairo.layout_path(cr, layout)
+
+        gradient = cairo.LinearGradient(0, 0, max(text_width, 1), 0)
+        gradient.add_color_stop_rgba(0.0, *_hex_to_rgba(PINK))
+        gradient.add_color_stop_rgba(0.52, *_hex_to_rgba(PURPLE))
+        gradient.add_color_stop_rgba(1.0, *_hex_to_rgba(BLUE))
+        cr.set_source(gradient)
+        cr.fill()
+
+    area.set_draw_func(draw)
+    return area
+
+
 def _brand_title() -> Gtk.Box:
     title = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     title.set_valign(Gtk.Align.CENTER)
     title.append(_label("Big", "brand-title"))
-    title.append(
-        _markup(
-            f"<span foreground='{PINK}'>Com</span>"
-            f"<span foreground='{PURPLE}'>mun</span>"
-            f"<span foreground='{BLUE}'>ity</span>",
-            "brand-title",
-        )
-    )
+    title.append(_gradient_text("Community", 232, 40, 32))
     return title
 
 
@@ -372,7 +396,7 @@ def _data_row(label: str, value: str | Gtk.Widget, style_class: str = "") -> Gtk
     if isinstance(value, Gtk.Widget):
         data = value
     else:
-        data = _label(value, "value", style_class, selectable=True)
+        data = _label(value, "value", style_class)
     data.set_hexpand(True)
     row.append(data)
     return row
@@ -672,7 +696,7 @@ def _status_card(info: SystemInfo) -> Gtk.Box:
 
     repo_value = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
     repo_value.append(_symbol("network-workgroup-symbolic", 18, "value-blue"))
-    repo_value.append(_label(info.repositories, "value", "value-blue", selectable=True))
+    repo_value.append(_label(info.repositories, "value", "value-blue"))
     repo_button = _button("Repos", "outline-button")
     repo_button.set_tooltip_text("Ver repositórios configurados")
     repo_button.connect("clicked", lambda button: _show_repositories(button, info))
@@ -681,7 +705,7 @@ def _status_card(info: SystemInfo) -> Gtk.Box:
     pending = info.pending_updates
     pending_value = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     if _pending_style(pending) == "value-green":
-        pending_value.append(_label(pending, "value", "value-green", selectable=True))
+        pending_value.append(_label(pending, "value", "value-green"))
     else:
         badge = _label(_pending_badge_count(pending), "pending-badge", xalign=0.5)
         badge.set_width_chars(5)
@@ -838,6 +862,8 @@ class ReleaseApplication(Adw.Application):
 
 
 def main(argv: list[str] | None = None) -> int:
+    GLib.set_prgname(APP_ID)
+    GLib.set_application_name(APP_TITLE)
     app = ReleaseApplication()
     return app.run(argv or sys.argv)
 

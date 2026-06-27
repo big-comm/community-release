@@ -9,3 +9,4 @@ Icon=org.bigcommunity.CommRelease
 Terminal=false
 Categories=System;Monitor;
 StartupNotify=true
+StartupWMClass=org.bigcommunity.CommRelease
