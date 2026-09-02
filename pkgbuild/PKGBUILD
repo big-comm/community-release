@@ -60,6 +60,17 @@ package() {
         fi
     done
 
+    # /etc/comm-release is the copy comm-release reads first (info.py). It is
+    # generated from etc/lsb-release so there is a single source of truth in
+    # the repository, and it exists because the ISO build rewrites
+    # /etc/lsb-release: manjaro-tools' configure_lsb_release replaces
+    # DISTRIB_RELEASE and DISTRIB_CODENAME with the build host's values, which
+    # is how an ISO came out reading `26.1.1 / Bian-May` instead of the values
+    # installed here. manjaro-tools does not know about this path.
+    if [ -f "${pkgdir}/etc/lsb-release" ]; then
+        install -Dm644 "${pkgdir}/etc/lsb-release" "${pkgdir}/etc/comm-release"
+    fi
+
     # Ensure executables are executable
     for exe in comm-release comm-release-gtk; do
         if [ -f "${pkgdir}/usr/bin/${exe}" ]; then
