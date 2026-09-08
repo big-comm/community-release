@@ -21,6 +21,11 @@ from gi.repository import Adw, Gdk, Gio, GLib, Gtk, Pango, PangoCairo
 from info import SystemInfo, collect_all
 from utils.i18n import _
 
+try:
+    from big_gnome_center_material import attach_window_material
+except ImportError:
+    attach_window_material = None
+
 APP_ID = "org.bigcommunity.CommRelease"
 APP_TITLE = "BigCommunity"
 APP_ICON_NAME = APP_ID
@@ -821,6 +826,9 @@ def _content(info: SystemInfo) -> Gtk.Widget:
 class ReleaseWindow(Adw.ApplicationWindow):
     def __init__(self, app: Adw.Application) -> None:
         super().__init__(application=app)
+        self.add_css_class("community-release")
+        if attach_window_material is not None:
+            self._window_material = attach_window_material(self, "community-release")
         self.set_title(f"{APP_TITLE} - {_('Distribution Information')}")
         self.set_icon_name(APP_ICON_NAME)
         self.set_default_size(1160, 760)
