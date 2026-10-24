@@ -8,6 +8,7 @@ import re
 
 from rich import box
 from rich.align import Align
+from rich.cells import cell_len
 from rich.console import Console, Group
 from rich.panel import Panel
 from rich.table import Table
@@ -68,6 +69,10 @@ def owl() -> Text:
         return gradient("BigCommunity")
 
 
+def owl_width() -> int:
+    return max((cell_len(line) for line in owl().plain.splitlines()), default=0)
+
+
 def card(title: str, body, accent: str, *, width: int | None = None) -> Panel:
     return Panel(
         body, title=Text(" " + title + " ", style=f"bold {accent}"),
@@ -109,7 +114,7 @@ def hero(info: SystemInfo, width: int, compact: bool = False) -> Panel:
     )
     if width >= 72 and not compact:
         content = Table.grid(expand=True, padding=(0, 3))
-        content.add_column(width=24)
+        content.add_column(width=owl_width())
         content.add_column(ratio=1)
         content.add_row(owl(), Align(brand, vertical="middle", height=10))
     else:

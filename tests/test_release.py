@@ -100,6 +100,18 @@ class RenderTests(unittest.TestCase):
              patch.object(dashboard, "collect_all", side_effect=collect):
             dashboard.display_dashboard()
 
+    def test_hero_shows_every_row_of_the_owl_uncut(self):
+        from rich.console import Console
+        from dashboard import hero, owl
+
+        output = StringIO()
+        Console(width=100, file=output, color_system=None).print(
+            hero(info.SystemInfo(), 100))
+        text = output.getvalue()
+        for line in owl().plain.splitlines():
+            with self.subTest(line=line):
+                self.assertIn(line.rstrip(), text)
+
     def test_narrow_and_wide_terminals_keep_content_within_bounds(self):
         from rich.console import Console
         from dashboard import dashboard, owl
