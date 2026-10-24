@@ -2,6 +2,7 @@
 """Build an Arch package from the exact committed tree, without installing it."""
 
 import hashlib
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -34,8 +35,18 @@ recipe = re.sub(r"^source=.*$", f'source=("{source.name}")', recipe, flags=re.MU
 recipe = re.sub(r"^md5sums=.*$", f"sha256sums=('{checksum}')", recipe, flags=re.MULTILINE)
 (target / "PKGBUILD").write_text(recipe + "\n")
 (target / "pkgbuild.install").write_text(git("show", f"{commit}:pkgbuild/pkgbuild.install") + "\n")
-subprocess.run(["makepkg", "--force", "--cleanbuild", "--noconfirm"], cwd=target, check=True)
-(target / "SOURCE-REVISION").write_text(f"{commit}\n{checksum}  {source.name}\n")
+subprocess.run(
+    ["makepkg", "--force", "--cleanbuild", "--noconfirm"], cwd=target, check=True,
+    env={**os.environ, "PKGDEST": str(target), "BUILDDIR": str(target)},
+)
+packages = sorted(p for p in target.glob("*.pkg.tar*") if not p.name.endswith(".sig"))
+if not packages:
+    sys.exit("makepkg finished without a package archive in the build directory.")
+manifest = f"{commit}\n{checksum}  {source.name}\n"
+for package in packages:
+    digest = hashlib.sha256(package.read_bytes()).hexdigest()
+    manifest += f"{digest}  {package.name}\n"
+(target / "SOURCE-REVISION").write_text(manifest)
 print(f"Built from {commit}", flush=True)
-for package in sorted(target.glob("*.pkg.tar.zst")):
+for package in packages:
     print(package)

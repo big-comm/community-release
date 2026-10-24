@@ -3,9 +3,10 @@
 pkgname=community-release
 pkgdesc="BigCommunity release definition"
 # Uncomment and edit the following lines as needed
-depends=('lsb-release' 'python' 'python-rich' 'python-gobject' 'gtk4' 'libadwaita')
+depends=('bash' 'lsb-release' 'python' 'python-rich' 'python-gobject' 'python-cairo' 'gtk4' 'libadwaita')
 makedepends=('gettext' 'make' 'git')
-optdepends=('python-textual: interactive terminal dashboard (comm-release --tui)')
+optdepends=('python-textual: interactive terminal dashboard (comm-release --tui)'
+            'big-gnome-center: optional GTK window material integration')
 conflicts=('manjaro-release')
 provides=('manjaro-release')
 #replaces=('')
