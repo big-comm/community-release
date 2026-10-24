@@ -4,8 +4,8 @@ pkgname=community-release
 pkgdesc="BigCommunity release definition"
 # Uncomment and edit the following lines as needed
 depends=('lsb-release' 'python' 'python-rich' 'python-gobject' 'gtk4' 'libadwaita')
-#makedepends=('')
-#optdepends=('')
+makedepends=('gettext' 'make' 'git')
+optdepends=('python-textual: interactive terminal dashboard (comm-release --tui)')
 conflicts=('manjaro-release')
 provides=('manjaro-release')
 #replaces=('')
@@ -32,14 +32,12 @@ prepare() {
 
 build() {
     cd "${srcdir}/${pkgname}"
-    # Add build steps here, if needed
-    # For example: make
+    make
 }
 
 check() {
     cd "${srcdir}/${pkgname}"
-    # Add check/test steps here, if needed
-    # For example: make check
+    make check
 }
 
 package() {
@@ -59,6 +57,16 @@ package() {
             cp -a "${srcdir}/${dir}" "${pkgdir}/"
         fi
     done
+
+    # Source previews can create bytecode, but it is interpreter-specific and
+    # must never be shipped in the architecture-independent package.
+    python - "${pkgdir}/usr/share/comm-release" <<'PY'
+import pathlib
+import shutil
+import sys
+for path in pathlib.Path(sys.argv[1]).rglob("__pycache__"):
+    shutil.rmtree(path)
+PY
 
     # /etc/comm-release is the copy comm-release reads first (info.py). It is
     # generated from etc/lsb-release so there is a single source of truth in

@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: Dependencies
+        run: pacman -Syu --noconfirm --needed git make gettext python python-rich python-textual
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Run offline tests as a regular user
+        run: |
+          useradd -m tester
+          chown -R tester .
+          su tester -c 'make check'
