@@ -1,20 +1,10 @@
 #!/bin/bash
 # Wrapper to run comm-release
 
-# Detect installation directory
-# First look in standard system path, then fallback to local/dev directory
-for i in /usr/share/comm-release; do
-    if [[ -e "$i" ]]; then
-        COMM_RELEASE_DIR="$i"
-        break
-    fi
-done
-
-# If not found, try local directory (development)
-if [[ -z "$COMM_RELEASE_DIR" ]]; then
-    SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-    COMM_RELEASE_DIR="$SCRIPT_DIR/../share/comm-release"
-fi
+# Resolve relative to this launcher so a source checkout can be previewed
+# even when another version is already installed on the system.
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+COMM_RELEASE_DIR="$SCRIPT_DIR/../share/comm-release"
 
 # Execute main.py
 exec python3 "$COMM_RELEASE_DIR/main.py" "$@"
