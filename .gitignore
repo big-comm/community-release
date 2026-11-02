@@ -5,3 +5,12 @@ CLAUDE.md
 # Python
 __pycache__/
 *.py[cod]
+
+# Built translation catalogs and local verification artifacts
+/usr/share/locale/
+.pytest_cache/
+/docs/previews/*.svg
+/docs/previews/*.png
+/docs/previews/benchmark.json
+/build/
+*.po~

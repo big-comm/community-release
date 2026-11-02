@@ -1,128 +1,310 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: comm-release\n"
+"Project-Id-Version: community-release 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-24 00:19-0300\n"
+"PO-Revision-Date: 2026-10-24 00:00-0300\n"
 "Last-Translator: Translation Automator <auto@translator.ai>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:37
-msgid "Distribution Information"
-msgstr "Informácie o distribúcii"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:58
+
+#: usr/share/comm-release/dashboard.py:36
+#: usr/share/comm-release/dashboard.py:166
+msgid "Unavailable"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:38
+msgid "Bare Metal"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:81
+#: usr/share/comm-release/dashboard.py:123
+#: usr/share/comm-release/display.py:149 usr/share/comm-release/gui.py:801
 msgid "Distributor ID"
 msgstr "ID distribútora"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:60
-msgid "Description"
-msgstr "Popis"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:62
+
+#: usr/share/comm-release/dashboard.py:81
+#: usr/share/comm-release/dashboard.py:125
+#: usr/share/comm-release/display.py:153 usr/share/comm-release/gui.py:803
 msgid "Release"
 msgstr "Verzia"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:64
+
+#: usr/share/comm-release/dashboard.py:81
+msgid "Version"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:82
+#: usr/share/comm-release/dashboard.py:126
+#: usr/share/comm-release/display.py:155 usr/share/comm-release/gui.py:804
 msgid "Codename"
 msgstr "Kódové meno"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:88
-msgid "Environment"
-msgstr "Prostredie"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:89
-msgid "Architecture"
-msgstr "Architektúra"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:90
-msgid "Kernel"
-msgstr "Jadro"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:91
+
+#: usr/share/comm-release/dashboard.py:82
+msgid "Code name"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:82
+#: usr/share/comm-release/dashboard.py:132
+#: usr/share/comm-release/display.py:189 usr/share/comm-release/gui.py:593
 msgid "Processor"
 msgstr "Procesor"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:92
-msgid "Memory"
-msgstr "Pamäť"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:93
-msgid "Uptime"
-msgstr "Prevádzkový čas"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:97
-msgid "System Info"
-msgstr "Informácie o systéme"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:115
+
+#: usr/share/comm-release/dashboard.py:83
+#: usr/share/comm-release/dashboard.py:133
+#: usr/share/comm-release/display.py:187 usr/share/comm-release/gui.py:594
+msgid "Architecture"
+msgstr "Architektúra"
+
+#: usr/share/comm-release/dashboard.py:83
+msgid "Arch"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:83
+#: usr/share/comm-release/dashboard.py:174
+#: usr/share/comm-release/display.py:215
 msgid "Install Date"
 msgstr "Dátum inštalácie"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:116
+
+#: usr/share/comm-release/dashboard.py:83
+msgid "Installed"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:84
+#: usr/share/comm-release/dashboard.py:175
+#: usr/share/comm-release/display.py:216
 msgid "Last Update"
 msgstr "Posledná aktualizácia"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:117
+
+#: usr/share/comm-release/dashboard.py:84
+msgid "Updated"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:84
+#: usr/share/comm-release/dashboard.py:176
+#: usr/share/comm-release/display.py:217
 msgid "Repositories"
 msgstr "Repozitáre"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:118
+
+#: usr/share/comm-release/dashboard.py:84
+msgid "Repos"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:85
+#: usr/share/comm-release/dashboard.py:177
+msgid "Updates (local)"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:85
+msgid "Pending"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:101
+#: usr/share/comm-release/display.py:172 usr/share/comm-release/gui.py:835
+#: usr/share/comm-release/gui.py:847 usr/share/comm-release/tui.py:40
+msgid "Distribution Information"
+msgstr "Informácie o distribúcii"
+
+#: usr/share/comm-release/dashboard.py:107
+msgid "Free software"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:108
+msgid "Community-driven"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:122
+msgid "Distribution"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:124
+#: usr/share/comm-release/display.py:151 usr/share/comm-release/gui.py:802
+msgid "Description"
+msgstr "Popis"
+
+#: usr/share/comm-release/dashboard.py:131
+msgid "System"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:134
+#: usr/share/comm-release/display.py:188 usr/share/comm-release/gui.py:595
+msgid "Kernel"
+msgstr "Jadro"
+
+#: usr/share/comm-release/dashboard.py:135
+#: usr/share/comm-release/display.py:186 usr/share/comm-release/gui.py:596
+msgid "Environment"
+msgstr "Prostredie"
+
+#: usr/share/comm-release/dashboard.py:149
+#: usr/share/comm-release/dashboard.py:154
+#: usr/share/comm-release/display.py:190
+msgid "Memory"
+msgstr "Pamäť"
+
+#: usr/share/comm-release/dashboard.py:156
+#: usr/share/comm-release/display.py:191
+msgid "Uptime"
+msgstr "Prevádzkový čas"
+
+#: usr/share/comm-release/dashboard.py:157
+msgid "Resources"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:163
+msgid "No pending updates"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:173
+msgid "Status"
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:217
+msgid "Updates use the local database; no network sync."
+msgstr ""
+
+#: usr/share/comm-release/dashboard.py:220
+msgid "Interactive dashboard"
+msgstr ""
+
+#: usr/share/comm-release/display.py:196
+msgid "System Info"
+msgstr "Informácie o systéme"
+
+#: usr/share/comm-release/display.py:218
 msgid "Pending Updates"
 msgstr "Čakajúce aktualizácie"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:122
+
+#: usr/share/comm-release/display.py:223
 msgid "System Status"
 msgstr "Stav systému"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:143
-msgid "Website:"
-msgstr "Webová stránka:"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:144
-msgid "Support:"
-msgstr "Podpora:"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:145
+
+#: usr/share/comm-release/display.py:256 usr/share/comm-release/display.py:280
 msgid "Donate: "
 msgstr "Darovať:"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:166
+
+#: usr/share/comm-release/display.py:260 usr/share/comm-release/display.py:278
+msgid "Website:"
+msgstr "Webová stránka:"
+
+#: usr/share/comm-release/display.py:264 usr/share/comm-release/display.py:279
+msgid "Support:"
+msgstr "Podpora:"
+
+#: usr/share/comm-release/display.py:312
 msgid "Distribution Information Tool"
 msgstr "Nástroj na informácie o distribúcii"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:173
+
+#: usr/share/comm-release/display.py:315
 msgid "Usage"
 msgstr "Použitie"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:181
+
+#: usr/share/comm-release/display.py:321
 msgid ""
 "With no OPTION specified defaults to showing all information (same as -a)."
 msgstr ""
 "Ak nie je zadaná žiadna MOŽNOSŤ, predvolene sa zobrazia všetky informácie "
 "(rovnako ako -a)."
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:187
-msgid "Options:"
-msgstr "Možnosti:"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:191
+
+#: usr/share/comm-release/display.py:332
 msgid "Display the distributor ID"
 msgstr "Zobraziť ID distribútora"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:192
+
+#: usr/share/comm-release/display.py:333
 msgid "Display the distribution description"
 msgstr "Zobraziť popis distribúcie"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:193
+
+#: usr/share/comm-release/display.py:334
 msgid "Display the release number"
 msgstr "Zobraziť číslo verzie"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:194
+
+#: usr/share/comm-release/display.py:335
 msgid "Display the codename"
 msgstr "Zobraziť kódové meno"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:195
+
+#: usr/share/comm-release/display.py:336
 msgid "Display all information"
 msgstr "Zobraziť všetky informácie"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:196
+
+#: usr/share/comm-release/display.py:337
 msgid "Display extended system information"
 msgstr "Zobraziť rozšírené informácie o systéme"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:197
+
+#: usr/share/comm-release/display.py:338
 msgid "Use short output format (plain text)"
 msgstr "Použiť krátky výstupný formát (čistý text)"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:198
+
+#: usr/share/comm-release/display.py:339
 msgid "Display with banner"
 msgstr "Zobraziť s bannerom"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:199
+
+#: usr/share/comm-release/display.py:340
+msgid "Open the interactive dashboard"
+msgstr ""
+
+#: usr/share/comm-release/display.py:341
 msgid "Display program version"
 msgstr "Zobraziť verziu programu"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:200
+
+#: usr/share/comm-release/display.py:342
 msgid "Display this help message"
 msgstr "Zobraziť túto pomocnú správu"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:224
+
+#: usr/share/comm-release/display.py:354
+msgid "Options:"
+msgstr "Možnosti:"
+
+#: usr/share/comm-release/display.py:367
 msgid "Copyright (C) 2025 BigCommunity"
 msgstr "Copyright (C) 2025 BigCommunity"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:227
+
+#: usr/share/comm-release/display.py:369
 msgid "This is free software; see the source for copying conditions."
 msgstr "Toto je slobodný softvér; pozrite si zdroj pre podmienky kopírovania."
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/display.py:239
+
+#: usr/share/comm-release/display.py:385
 msgid "Error"
 msgstr "Chyba"
-#: /home/talesam/Servidor/GitHub/BigCommunity/community-release/usr/share/comm-release/main.py:62
+
+#: usr/share/comm-release/gui.py:727
+msgid "Updates (local database)"
+msgstr ""
+
+#: usr/share/comm-release/main.py:64
 msgid "unknown option"
 msgstr "neznáma možnosť"
+
+#: usr/share/comm-release/main.py:77
+msgid "Use --tui on its own."
+msgstr ""
+
+#: usr/share/comm-release/main.py:80
+msgid "--tui requires an interactive terminal."
+msgstr ""
+
+#: usr/share/comm-release/main.py:87
+msgid "The interactive mode requires python-textual."
+msgstr ""
+
+#: usr/share/comm-release/tui.py:28
+msgid "Refresh"
+msgstr ""
+
+#: usr/share/comm-release/tui.py:29
+msgid "Website"
+msgstr ""
+
+#: usr/share/comm-release/tui.py:30
+msgid "Support"
+msgstr ""
+
+#: usr/share/comm-release/tui.py:31
+msgid "Donate"
+msgstr ""
+
+#: usr/share/comm-release/tui.py:32
+msgid "Quit"
+msgstr ""

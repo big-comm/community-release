@@ -369,7 +369,9 @@ def _pending_badge_count(value: str) -> str:
 
 
 def _pending_style(value: str) -> str:
-    if value in ("None", "Unknown", "0 packages", ""):
+    if value in ("Unknown", ""):
+        return "value"
+    if value in ("None", "0 packages"):
         return "value-green"
     return "value-red"
 
@@ -709,8 +711,9 @@ def _status_card(info: SystemInfo) -> Gtk.Box:
 
     pending = info.pending_updates
     pending_value = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    if _pending_style(pending) == "value-green":
-        pending_value.append(_label(pending, "value", "value-green"))
+    pending_style = _pending_style(pending)
+    if pending_style != "value-red":
+        pending_value.append(_label(pending, "value", pending_style))
     else:
         badge = _label(_pending_badge_count(pending), "pending-badge", xalign=0.5)
         badge.set_width_chars(5)
@@ -721,7 +724,7 @@ def _status_card(info: SystemInfo) -> Gtk.Box:
     update_button.connect("clicked", lambda button: _open_updates(button))
     status_rows.append(
         _status_data_row(
-            "Pendentes",
+            _("Updates (local database)"),
             pending_value,
             update_button,
         )

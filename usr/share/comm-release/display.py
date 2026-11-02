@@ -125,55 +125,12 @@ def _brand_mark(style: str = WATERMARK) -> Text:
 # ─── Banner ────────────────────────────────────────────────────────────────────
 
 def display_banner() -> None:
-    logo = Text("◉◡◉", style=VIOLET)
-    title = Text.assemble(
-        ("Big", WHITE),
-        ("Com", PINK),
-        ("mun", PURPLE),
-        ("ity", BLUE),
-    )
-    brand = Table.grid(padding=(0, 1))
-    brand.add_column(justify="right", no_wrap=True)
-    brand.add_column(justify="left", no_wrap=True)
-    brand.add_row(logo, title)
+    from dashboard import hero
+    from info import collect_distrib
 
-    subtitle = Text(_("Distribution Information"), style=MUTED)
-    accent = Text.assemble(
-        ("Open Source", BLUE),
-        ("     |     ", DIM),
-        ("Livre", PINK),
-        ("     |     ", DIM),
-        ("Comunitário", VIOLET),
-    )
-
-    center = Group(
-        Align.center(brand),
-        Align.center(subtitle),
-        Padding(Align.center(accent), (1, 0, 0, 0)),
-    )
-    if console.width >= 100:
-        content = Table.grid(expand=True)
-        content.add_column(ratio=1, justify="left")
-        content.add_column(ratio=4, justify="center")
-        content.add_column(ratio=1, justify="right")
-        content.add_row(
-            Padding(_dot_matrix("#0d4ea6"), (1, 0, 0, 0)),
-            center,
-            Padding(_dot_matrix("#72265f"), (1, 0, 0, 0)),
-        )
-    else:
-        content = center
-
-    console.print(
-        Align.center(
-            _panel(
-                content,
-                width=_content_width(96),
-                border_style=BORDER_PINK,
-                padding=(0, 2),
-            )
-        )
-    )
+    console.print(Align.center(hero(
+        SystemInfo(distrib=collect_distrib()), _content_width(104)
+    )))
     console.print()
 
 
@@ -251,9 +208,8 @@ def _status_panel(
     min_rows: int = 0,
 ) -> Panel:
     pending_style = (
-        ERROR
-        if info.pending_updates not in ("None", "Unknown", "0 packages")
-        else OK
+        MUTED if info.pending_updates == "Unknown"
+        else OK if info.pending_updates in ("None", "0 packages") else ERROR
     )
     rows = [
         ("□", _("Install Date"),    info.install_date,    BLUE),
@@ -381,6 +337,7 @@ def display_help(version: str) -> None:
         ("-e,  --extended",        _("Display extended system information")),
         ("-s,  --short",           _("Use short output format (plain text)")),
         ("-b,  --banner",          _("Display with banner")),
+        ("-t,  --tui",             _("Open the interactive dashboard")),
         ("-p,  --program-version", _("Display program version")),
         ("-h,  --help",            _("Display this help message")),
     ]

@@ -32,11 +32,13 @@ class SystemInfo:
     last_update: str = "Unknown"
     repositories: str = "Unknown"
     pending_updates: str = "Unknown"
+    memory_total_kib: int = 0
+    memory_available_kib: int = -1
 
 
 # ─── Internal helpers ──────────────────────────────────────────────────────────
 
-def _run(cmd: list[str], timeout: int = 15) -> str:
+def _run(cmd: list[str], timeout: int = 1) -> str:
     """Run a command and return stripped stdout; empty string on any failure."""
     try:
         result = subprocess.run(
@@ -130,8 +132,8 @@ def collect_environment() -> str:
 
 def collect_hardware() -> tuple[str, str, str, str, str]:
     """Return (architecture, kernel, cpu, memory, uptime)."""
-    architecture = _run(["uname", "-m"]) or "Unknown"
-    kernel       = _run(["uname", "-r"]) or "Unknown"
+    architecture = os.uname().machine
+    kernel       = os.uname().release
 
     # CPU
     cpu = "Unknown"
@@ -242,20 +244,37 @@ def collect_repositories() -> str:
 
 
 def collect_pending_updates() -> str:
-    """Return number of pending package updates."""
-    if shutil.which("checkupdates"):
-        out = _run(["checkupdates"])
-        lines = [ln for ln in out.splitlines() if ln.strip()]
-        return f"{len(lines)} packages" if lines else "None"
+    """Query the existing local package database, never sync or use the network.
 
+    An error or timeout is unknown, not evidence that the system is up to date.
+    pacman's exit status 1 with no stderr means there are no pending upgrades.
+    """
     if shutil.which("pacman"):
-        out = _run(["pacman", "-Qu"])
-        lines = [ln for ln in out.splitlines() if ln.strip()]
+        try:
+            result = subprocess.run(
+                ["pacman", "-Qu"], capture_output=True, text=True, timeout=1
+            )
+        except (OSError, subprocess.TimeoutExpired):
+            return "Unknown"
+        if result.returncode not in (0, 1) or result.stderr.strip():
+            return "Unknown"
+        if result.returncode == 1 and result.stdout.strip():
+            return "Unknown"
+        lines = [ln for ln in result.stdout.splitlines() if ln.strip()]
         return f"{len(lines)} packages" if lines else "None"
 
     if shutil.which("apt-get"):
-        out = _run(["apt", "list", "--upgradable"])
-        count = sum(1 for ln in out.splitlines() if "upgradable" in ln)
+        # apt list uses its local cache; a simulated upgrade is not needed.
+        try:
+            result = subprocess.run(
+                ["apt", "list", "--upgradable"], capture_output=True,
+                text=True, timeout=1, env={**os.environ, "LC_ALL": "C"},
+            )
+        except (OSError, subprocess.TimeoutExpired):
+            return "Unknown"
+        if result.returncode:
+            return "Unknown"
+        count = sum(1 for ln in result.stdout.splitlines() if "[upgradable" in ln)
         return f"{count} packages" if count else "None"
 
     return "Unknown"
@@ -277,4 +296,10 @@ def collect_all() -> SystemInfo:
     info.last_update     = collect_last_update()
     info.repositories    = collect_repositories()
     info.pending_updates = collect_pending_updates()
+    meminfo = _read("/proc/meminfo")
+    for name, attr in (("MemTotal", "memory_total_kib"),
+                       ("MemAvailable", "memory_available_kib")):
+        match = re.search(rf"^{name}:\s+(\d+)", meminfo, re.MULTILINE)
+        if match:
+            setattr(info, attr, int(match.group(1)))
     return info
